@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Notes By Day</string>
+    <string name="previous_day_button_desc">Button to show the previous day</string>
+    <string name="next_day_button_desc">Button to show the next day</string>
+    <string name="new_note_fab_desc">New note</string>
+    <string name="new_note_hint_text">Take a note and hit back</string>
+    <string name="note_screen_label">Note</string>
+</resources>

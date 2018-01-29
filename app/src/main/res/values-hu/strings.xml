@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Napi Jegyzetek</string>
+    <string name="previous_day_button_desc">Előző napra mutató gomb</string>
+    <string name="next_day_button_desc">Következő napra mutató gomb</string>
+    <string name="new_note_fab_desc">Új jegyzet</string>
+    <string name="new_note_hint_text">Jegyzetelj, és nyomj Vissza gombot</string>
+    <string name="note_screen_label">Jegyzet</string>
+</resources>
