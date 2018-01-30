@@ -1,20 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Layout for the note taking part of the application-->
+
+<!--Linear layout for the note and the metadata-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     >
 
+    <!--The chips with the date
+        TODO: and the category tag -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="0"
+        >
+
+            <TextView
+                android:id="@+id/date_chip_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_chip_simple_drawable"
+                tools:text="2018.09.23, Dayname"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!--A full screen text input (it only seems so, the divider is invisible)-->
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="16dp"
+        android:padding="@dimen/activity_horizontal_margin"
         >
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/note_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
@@ -23,6 +50,7 @@
             android:fontFamily="sans-serif-light"
             android:textSize="24sp"
             android:textCursorDrawable="@null"
+            tools:text="Lorem ipsum dolor sit amet"
             />
 
     </android.support.design.widget.TextInputLayout>

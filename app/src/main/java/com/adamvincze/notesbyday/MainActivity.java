@@ -20,15 +20,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //putting the toolbar on top in the support library
         Toolbar myToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(myToolbar);
-
-        //Date chosenDate =  dates.getTime();
 
         //initially show the current date at the open of the app
         final TextView dateText = findViewById(R.id.current_date_view);
         dateText.setText(NotesByDayHelper.nbdFormatCalendar(dates));
 
+        //the previous day button on the note card
         ImageButton previousButton = findViewById(R.id.previous_day_button);
         previousButton.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the numbers category is clicked on.
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //the next day button on the note card
         ImageButton nextButton = findViewById(R.id.next_day_button);
         nextButton.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the numbers category is clicked on.
@@ -49,16 +51,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //the New note FAB, passing the current date
         FloatingActionButton newNoteFab = findViewById(R.id.new_note_fab);
         newNoteFab.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the family category is clicked on.
             @Override
             public void onClick(View view) {
                 Intent newNoteIntent = new Intent(MainActivity.this, NoteActivity.class);
+                newNoteIntent.putExtra("date", dates);
                 startActivity(newNoteIntent);
             }
         });
 
+        //mostly invisible button to reach the test layout
         Button testButton = findViewById(R.id.test_button);
         testButton.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the numbers category is clicked on.
