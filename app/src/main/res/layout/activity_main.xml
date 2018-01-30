@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context="com.adamvincze.notesbyday.MainActivity">
+    tools:context="com.adamvincze.notesbyday.MainActivity"
+    >
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/main_toolbar"
@@ -14,7 +16,8 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:ignore="UnusedAttribute"/>
+        tools:ignore="UnusedAttribute"
+        />
 
 
     <android.support.v7.widget.CardView
@@ -23,12 +26,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/main_toolbar"
         android:layout_margin="8dp"
-        app:cardElevation="2dp">
+        app:cardElevation="2dp"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="wrap_content"
+            >
 
             <ImageButton
                 android:id="@+id/previous_day_button"
@@ -39,7 +43,8 @@
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/previous_day_button_desc"
                 android:src="@drawable/ic_chevron_left_contrast_24dp"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded"
+                />
 
             <TextView
                 android:id="@+id/current_date_view"
@@ -53,7 +58,8 @@
                 android:textAlignment="center"
                 android:textSize="20sp"
                 tools:ignore="RtlHardcoded"
-                tools:text="2018 Monthname 1., Dayname, Lorem Ipsum" />
+                tools:text="2018 Monthname 1., Dayname, Lorem Ipsum"
+                />
 
             <ImageButton
                 android:id="@+id/next_day_button"
@@ -64,7 +70,8 @@
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/next_day_button_desc"
                 android:src="@drawable/ic_chevron_right_contrast_24dp"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded"
+                />
 
         </RelativeLayout>
 
@@ -75,7 +82,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/date_bar"
-        android:orientation="horizontal" />
+        >
+
+
+
+    </android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/new_note_fab"
@@ -90,7 +101,8 @@
         app:fabSize="normal"
         app:rippleColor="@color/colorAccentDark"
         app:useCompatPadding="true"
-        tools:ignore="RtlHardcoded" />
+        tools:ignore="RtlHardcoded"
+        />
 
     <Button
         android:id="@+id/test_button"
@@ -101,7 +113,7 @@
         android:layout_alignParentLeft="true"
         android:text="test_view"
         android:visibility="invisible"
-        tools:ignore="HardcodedText,RtlHardcoded" />
-
+        tools:ignore="HardcodedText,RtlHardcoded"
+        />
 
 </RelativeLayout>
