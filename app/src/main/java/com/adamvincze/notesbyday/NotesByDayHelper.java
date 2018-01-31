@@ -14,11 +14,4 @@ final class NotesByDayHelper {
         return DateTimeFormat.forStyle("F").print(date);
     }
 
-    //adds a day to a calendar
-    static void nextDayButtonHelper(LocalDate date) { date.plusDays(1); }
-
-    //removes a day from calendar
-    static void previousDayButtonHelper(LocalDate date) { date.minusDays(1); }
-
-
 }

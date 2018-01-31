@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             // The code in this method will be executed when the numbers category is clicked on.
             @Override
             public void onClick(View view) {
-            NotesByDayHelper.previousDayButtonHelper(nbdDate);
+            nbdDate.minusDays(1);
             dateText.setText(NotesByDayHelper.nbdFormatDate(nbdDate));
             }
         });
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             // The code in this method will be executed when the numbers category is clicked on.
             @Override
             public void onClick(View view) {
-                NotesByDayHelper.nextDayButtonHelper(nbdDate);
+                nbdDate.plusDays(1);
                 dateText.setText(NotesByDayHelper.nbdFormatDate(nbdDate));
             }
         });

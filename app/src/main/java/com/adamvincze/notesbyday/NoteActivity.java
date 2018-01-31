@@ -7,8 +7,6 @@ import android.widget.TextView;
 
 import org.joda.time.LocalDate;
 
-import java.util.Calendar;
-
 public class NoteActivity extends AppCompatActivity {
 
     @Override
