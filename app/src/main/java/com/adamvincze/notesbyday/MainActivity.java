@@ -10,11 +10,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.util.Calendar;
+import org.joda.time.LocalDate;
 
 public class MainActivity extends AppCompatActivity {
 
-    protected Calendar dates = Calendar.getInstance();
+        protected static LocalDate nbdDate = LocalDate.now();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         //initially show the current date at the open of the app
         final TextView dateText = findViewById(R.id.current_date_view);
-        dateText.setText(NotesByDayHelper.nbdFormatCalendar(dates));
+        dateText.setText(NotesByDayHelper.nbdFormatDate(nbdDate));
 
         //the previous day button on the note card
         ImageButton previousButton = findViewById(R.id.previous_day_button);
@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
             // The code in this method will be executed when the numbers category is clicked on.
             @Override
             public void onClick(View view) {
-            NotesByDayHelper.previousDayButtonHelper(dates);
-            dateText.setText(NotesByDayHelper.nbdFormatCalendar(dates));
+            NotesByDayHelper.previousDayButtonHelper(nbdDate);
+            dateText.setText(NotesByDayHelper.nbdFormatDate(nbdDate));
             }
         });
 
@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
             // The code in this method will be executed when the numbers category is clicked on.
             @Override
             public void onClick(View view) {
-                NotesByDayHelper.nextDayButtonHelper(dates);
-                dateText.setText(NotesByDayHelper.nbdFormatCalendar(dates));
+                NotesByDayHelper.nextDayButtonHelper(nbdDate);
+                dateText.setText(NotesByDayHelper.nbdFormatDate(nbdDate));
             }
         });
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent newNoteIntent = new Intent(MainActivity.this, NoteActivity.class);
-                newNoteIntent.putExtra("date", dates);
+                newNoteIntent.putExtra("date", nbdDate);
                 startActivity(newNoteIntent);
             }
         });
