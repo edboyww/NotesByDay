@@ -10,16 +10,17 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.joda.time.LocalDate;
+//import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
-
-        protected static LocalDate nbdDate = LocalDate.now();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        Log.v("nbdDate", nbdDate.toString());
+//        Log.v("nbdDate-1", nbdDate.minusDays(1).toString());
 
         //putting the toolbar on top in the support library
         Toolbar myToolbar = findViewById(R.id.main_toolbar);
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         //initially show the current date at the open of the app
         final TextView dateText = findViewById(R.id.current_date_view);
-        dateText.setText(NotesByDayHelper.nbdFormatDate(nbdDate));
+        dateText.setText(NbdHelper.nbdFormatDate(NbdApplication.getNbdDate()));
 
         //the previous day button on the note card
         ImageButton previousButton = findViewById(R.id.previous_day_button);
@@ -35,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
             // The code in this method will be executed when the numbers category is clicked on.
             @Override
             public void onClick(View view) {
-            nbdDate.minusDays(1);
-            dateText.setText(NotesByDayHelper.nbdFormatDate(nbdDate));
+            NbdApplication.setNbdDate(NbdApplication.getNbdDate().minusDays(1));
+            dateText.setText(NbdHelper.nbdFormatDate(NbdApplication.getNbdDate()));
             }
         });
 
@@ -46,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
             // The code in this method will be executed when the numbers category is clicked on.
             @Override
             public void onClick(View view) {
-                nbdDate.plusDays(1);
-                dateText.setText(NotesByDayHelper.nbdFormatDate(nbdDate));
+                NbdApplication.setNbdDate(NbdApplication.getNbdDate().plusDays(1));
+                dateText.setText(NbdHelper.nbdFormatDate(NbdApplication.getNbdDate()));
             }
         });
 
@@ -58,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent newNoteIntent = new Intent(MainActivity.this, NoteActivity.class);
-                newNoteIntent.putExtra("date", nbdDate);
                 startActivity(newNoteIntent);
             }
         });
