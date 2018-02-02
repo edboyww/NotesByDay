@@ -5,9 +5,9 @@
     <string name="new_note_fab_desc">New note</string>
     <string name="new_note_hint_text">Take a note and hit back</string>
     <string name="note_screen_label">Note</string>
-    <string name="today">today</string>
-    <string name="tomorrow">tomorrow</string>
-    <string name="day_after_tomorrow">day after tomorrow</string>
-    <string name="yesterday">yesterday</string>
-    <string name="day_before_yesterday">day before yesterday</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="day_after_tomorrow">Day after tomorrow</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="day_before_yesterday">Day before yesterday</string>
 </resources>

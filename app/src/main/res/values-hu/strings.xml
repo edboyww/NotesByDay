@@ -6,9 +6,9 @@
     <string name="new_note_fab_desc">Új jegyzet</string>
     <string name="new_note_hint_text">Jegyzetelj, és nyomj Vissza gombot</string>
     <string name="note_screen_label">Jegyzet</string>
-    <string name="today">ma</string>
-    <string name="tomorrow">holnap</string>
-    <string name="day_after_tomorrow">holnapután</string>
-    <string name="yesterday">tegnap</string>
-    <string name="day_before_yesterday">tegnapelőtt</string>
+    <string name="today">Ma</string>
+    <string name="tomorrow">Holnap</string>
+    <string name="day_after_tomorrow">Holnapután</string>
+    <string name="yesterday">Tegnap</string>
+    <string name="day_before_yesterday">Tegnapelőtt</string>
 </resources>
