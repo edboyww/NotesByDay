@@ -13,7 +13,7 @@ final class NbdHelper {
         //TODO compare date to calendar and return day string accordingly (Today, Tomorrow, Yesterday, Day before yesterday)
         Context context = NbdApplication.getNbdContext();
         LocalDate comp = LocalDate.now();
-        if (date.equals(comp)) return context.getString(R.string.today); else
+        if (date.equals(comp)) return context.getString(R.string.today);
         if (date.equals(comp.plusDays(1))) return context.getString(R.string.tomorrow);
         if (date.equals(comp.plusDays(2))) return context.getString(R.string.day_after_tomorrow);
         if (date.equals(comp.minusDays(1))) return context.getString(R.string.yesterday);
