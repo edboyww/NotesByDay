@@ -14,7 +14,7 @@ public class NoteActivity extends AppCompatActivity {
 
         //Setting the text of the date chip with the date or hide it if the date is nonexistent
         TextView dateChip = findViewById(R.id.date_chip_view);
-        dateChip.setText(NbdHelper.nbdFormatDate(NbdApplication.getNbdDate()));
+        dateChip.setText(NbdHelper.formatDate(NbdApplication.getNbdDate()));
 
 
     }

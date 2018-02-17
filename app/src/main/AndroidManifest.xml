@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.adamvincze.notesbyday">
 
-    <!--TODO Google app indexing-->
+    <!--TODO: deal with Google app indexing AND backup-->
     <application
         android:name="com.adamvincze.notesbyday.NbdApplication"
         android:allowBackup="true"
@@ -16,7 +17,6 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -25,9 +25,14 @@
             android:name=".NoteActivity"
             android:label="@string/note_screen_label"
             android:parentActivityName=".MainActivity"
-            />
+            tools:ignore="UnusedAttribute"
+            >
+            <!-- The meta-data element is needed for versions lower than 4.1 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.adamvincze.notesbyday.MainActivity" />
+        </activity>
 
-        <activity android:name=".TestActivity"/>
 
     </application>
 

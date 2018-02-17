@@ -4,14 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-//import android.util.Log;
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,15 +27,15 @@ public class MainActivity extends AppCompatActivity {
 
         //initially show the current date at the open of the app
         final TextView dateText = findViewById(R.id.current_date_view);
-        dateText.setText(NbdHelper.nbdFormatDate(NbdApplication.getNbdDate()));
+        dateText.setText(NbdHelper.formatDate(NbdApplication.getNbdDate()));
 
         //the previous day button on the note card
         ImageButton previousButton = findViewById(R.id.previous_day_button);
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            NbdApplication.setNbdDate(NbdApplication.getNbdDate().minusDays(1));
-            dateText.setText(NbdHelper.nbdFormatDate(NbdApplication.getNbdDate()));
+                NbdApplication.setNbdDate(NbdApplication.getNbdDate().minusDays(1));
+                dateText.setText(NbdHelper.formatDate(NbdApplication.getNbdDate()));
             }
         });
 
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 NbdApplication.setNbdDate(NbdApplication.getNbdDate().plusDays(1));
-                dateText.setText(NbdHelper.nbdFormatDate(NbdApplication.getNbdDate()));
+                dateText.setText(NbdHelper.formatDate(NbdApplication.getNbdDate()));
             }
         });
 
@@ -58,21 +59,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //mostly invisible button to reach the test layout
-        Button testButton = findViewById(R.id.test_button);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent testIntent = new Intent(MainActivity.this, TestActivity.class);
-                startActivity(testIntent);
-            }
-        });
+        RecyclerView mainListView = findViewById(R.id.main_list_view);
 
-        NbdNote noteExample = new NbdNote(NbdApplication.getNbdDate(), "Lorem ipsum");
-        Log.v("NbdNoteTest", noteExample.toString());
+        //for testing purposes
+        ArrayList<NbdNote> testList = NbdHelper.sampleNoteList(5, NbdApplication.getNbdDate());
+//        Log.v("NbdNoteListTest", testList.toString());
+
+        NbdNoteAdapter adapter = new NbdNoteAdapter(this, testList);
+        mainListView.setAdapter(adapter);
+        mainListView.setLayoutManager(new LinearLayoutManager(this));
+
+        //mostly invisible button to reach the test layout
+//        Button testButton = findViewById(R.id.test_button);
+//        testButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent testIntent = new Intent(MainActivity.this, TestActivity.class);
+//                startActivity(testIntent);
+//            }
+//        });
 
     }
-
-
 
 }
