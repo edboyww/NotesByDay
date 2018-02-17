@@ -5,9 +5,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     >
 
     <!--The chips with the date
@@ -15,24 +15,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_weight="0"
-        android:background="#EEEEEE"
+        android:background="@color/darkerBackground"
+        android:orientation="horizontal"
         >
 
-            <TextView
-                android:id="@+id/date_chip_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_chip_simple_drawable"
-                tools:text="2018.09.23, Saturday"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:textStyle="bold"
-                />
+        <TextView
+            android:id="@+id/date_chip_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/shape_chip_simple_drawable"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            tools:text="2018.09.23, Saturday"
+            />
 
     </LinearLayout>
 
@@ -48,12 +48,12 @@
             android:id="@+id/note_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:scrollbars="vertical"
             android:background="@null"
             android:fontFamily="sans-serif-light"
-            android:textSize="24sp"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
             android:textCursorDrawable="@null"
+            android:textSize="24sp"
             tools:text="Lorem ipsum dolor sit"
             />
 

@@ -6,4 +6,5 @@
     <color name="colorAccent">#fdd835</color>
     <color name="colorAccentDark">#c6a700</color>
     <color name="colorDefaultText">#333333</color>
+    <color name="darkerBackground">#EEEEEE</color>
 </resources>

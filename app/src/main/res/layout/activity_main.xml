@@ -81,11 +81,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/date_bar"
-        >
-
-
-
-    </android.support.v7.widget.RecyclerView>
+        tools:listitem="@layout/note_item"
+        tools:itemCount="3"
+        android:paddingTop="8dp"
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/new_note_fab"

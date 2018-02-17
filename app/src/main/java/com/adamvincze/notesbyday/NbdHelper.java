@@ -7,10 +7,8 @@ import org.joda.time.format.DateTimeFormat;
 
 //Collecting here all the helper methods in the app
 final class NbdHelper {
-
     //Formatting a Joda LocalDate object as <long local date>, <day of the week> or a day string
     static String nbdFormatDate(LocalDate date) {
-        //TODO compare date to calendar and return day string accordingly (Today, Tomorrow, Yesterday, Day before yesterday)
         Context context = NbdApplication.getNbdContext();
         LocalDate comp = LocalDate.now();
         if (date.equals(comp)) return context.getString(R.string.today);
