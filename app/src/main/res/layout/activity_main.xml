@@ -57,7 +57,7 @@
                 android:textAlignment="center"
                 android:textSize="20sp"
                 tools:ignore="RtlHardcoded"
-                tools:text="2018 Monthname 1., Dayname, Lorem Ipsum"
+                tools:text="1983 February 8., Saturday, Lorem Ipsum"
                 />
 
             <ImageButton

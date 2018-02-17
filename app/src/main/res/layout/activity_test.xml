@@ -46,7 +46,7 @@
                 android:layout_centerVertical="true"
                 android:textSize="20sp"
                 android:text="Lorem ipsum"
-                tools:text="2018 Monthname 1., Dayname, Lorem Ipsum"
+                tools:text="Lorem Ipsum"
                 tools:ignore="HardcodedText,RtlHardcoded"
                 />
 

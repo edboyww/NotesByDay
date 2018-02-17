@@ -25,9 +25,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_chip_simple_drawable"
-                tools:text="2018.09.23, Dayname"
+                tools:text="2018.09.23, Saturday"
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:textStyle="bold"
@@ -53,7 +54,7 @@
             android:fontFamily="sans-serif-light"
             android:textSize="24sp"
             android:textCursorDrawable="@null"
-            tools:text="Lorem ipsum dolor sit amet"
+            tools:text="Lorem ipsum dolor sit"
             />
 
     </android.support.design.widget.TextInputLayout>
