@@ -7,4 +7,5 @@
     <color name="colorAccentDark">#c6a700</color>
     <color name="colorDefaultText">#333333</color>
     <color name="darkerBackground">#EEEEEE</color>
+    <color name="dividerColor">#DDDDDD</color>
 </resources>

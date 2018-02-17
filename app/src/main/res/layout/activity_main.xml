@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/main_toolbar"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
         app:cardElevation="2dp"
         >
 
@@ -83,7 +83,6 @@
         android:layout_below="@id/date_bar"
         tools:listitem="@layout/note_item"
         tools:itemCount="3"
-        android:paddingTop="8dp"
         />
 
     <android.support.design.widget.FloatingActionButton
@@ -92,6 +91,7 @@
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_add_black_24dp"
