@@ -51,7 +51,7 @@
             android:layout_toRightOf="@id/previous_day_button"
             android:fontFamily="sans-serif-condensed"
             android:textColor="@android:color/white"
-            android:textAlignment="center"
+            android:gravity="center"
             android:textSize="20sp"
             tools:ignore="RtlHardcoded"
             tools:text="1983 February 8., Saturday, Lorem Ipsum"
@@ -77,10 +77,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/date_bar"
+        tools:itemCount="5"
+        tools:listitem="@layout/note_item"
         >
-
-
-
     </android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
