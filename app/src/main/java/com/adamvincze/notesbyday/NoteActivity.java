@@ -31,7 +31,7 @@ public class NoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
 
-        //Getting the note object out of the intent bundle, if exists, if not, creation of a new one
+        //Getting the note object out of the intent bundle if exists, if not, creation of a new one
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             note = (NbdNote) extras.getSerializable("note");
@@ -44,6 +44,7 @@ public class NoteActivity extends AppCompatActivity {
             note.setAdded(new LocalDateTime());
         }
 
+        //The Toolbar
         noteToolbar = findViewById(R.id.note_toolbar);
         setSupportActionBar(noteToolbar);
         noteActionBar = getSupportActionBar();
@@ -52,14 +53,17 @@ public class NoteActivity extends AppCompatActivity {
         //TODO: create that fancy effect from Telegram for cancel if the EditText is empty
         noteActionBar.setDisplayHomeAsUpEnabled(true);
 
+        //The Chip
         dateChip = findViewById(R.id.date_chip_view);
         dateChip.setText(NbdHelper.formatDate(selectedDate));
 
+        //The editor area
         noteEditor = findViewById(R.id.note_edit_text);
         noteEditor.setText(note.getText());
 
     }
 
+    //Listening to the toolbar actions
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
