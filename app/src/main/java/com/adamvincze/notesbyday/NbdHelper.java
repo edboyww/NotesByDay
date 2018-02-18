@@ -16,6 +16,7 @@ final class NbdHelper {
 
     //Formatting a Joda LocalDate object as <long local date>, <day of the week> or a day string
     static String formatDate(LocalDate date) {
+
         Context context = NbdApplication.getNbdContext();
         LocalDate comp = LocalDate.now();
         if (date.equals(comp)) return context.getString(R.string.today);
@@ -24,6 +25,7 @@ final class NbdHelper {
         if (date.equals(comp.minusDays(1))) return context.getString(R.string.yesterday);
         if (date.equals(comp.minusDays(2))) return context.getString(R.string.day_before_yesterday);
         return DateTimeFormat.forPattern("yyyy MMM d, EEE").print(date);
+
     }
 
     //temporary implementation to make a list of 5-10 notes plus and minus n days from a given Localdate

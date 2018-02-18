@@ -103,17 +103,4 @@
         tools:ignore="RtlHardcoded"
         />
 
-    <!--Button for testing-->
-    <!--<Button-->
-        <!--android:id="@+id/test_button"-->
-        <!--style="@android:style/Widget.Button.Small"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:text="test_view"-->
-        <!--android:visibility="invisible"-->
-        <!--tools:ignore="HardcodedText,RtlHardcoded"-->
-        <!--/>-->
-
 </RelativeLayout>

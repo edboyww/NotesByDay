@@ -9,11 +9,14 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data class NbdNote implements Serializable {
+
     private LocalDate noteDate;
     private String noteText;
 
     NbdNote(LocalDate date, String text) {
+
         this.noteDate = date;
         this.noteText = text;
+
     }
 }

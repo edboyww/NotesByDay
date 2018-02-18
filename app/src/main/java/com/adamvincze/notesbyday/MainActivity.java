@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -16,21 +17,29 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    Toolbar myToolbar;
+    TextView dateText;
+    ImageButton previousButton;
+    ImageButton nextButton;
+    FloatingActionButton newNoteFab;
+    RecyclerView mainListView;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //putting the toolbar on top in the support library
-        Toolbar myToolbar = findViewById(R.id.main_toolbar);
+        myToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(myToolbar);
 
         //initially show the current date at the open of the app
-        final TextView dateText = findViewById(R.id.current_date_view);
+        dateText = findViewById(R.id.current_date_view);
         dateText.setText(NbdHelper.formatDate(NbdApplication.getNbdDate()));
 
         //the previous day button on the note card
-        ImageButton previousButton = findViewById(R.id.previous_day_button);
+        previousButton = findViewById(R.id.previous_day_button);
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //the next day button on the note card
-        ImageButton nextButton = findViewById(R.id.next_day_button);
+        nextButton = findViewById(R.id.next_day_button);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,16 +59,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //the New note FAB, passing the current date
-        FloatingActionButton newNoteFab = findViewById(R.id.new_note_fab);
+        newNoteFab = findViewById(R.id.new_note_fab);
         newNoteFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent newNoteIntent = new Intent(MainActivity.this, NoteActivity.class);
+                //startActivityForResult(newNoteIntent, 0);
                 startActivity(newNoteIntent);
             }
         });
 
-        RecyclerView mainListView = findViewById(R.id.main_list_view);
+        mainListView = findViewById(R.id.main_list_view);
 
         //for testing purposes
         ArrayList<NbdNote> testList = NbdHelper.sampleNoteList(5, NbdApplication.getNbdDate());
@@ -69,16 +79,17 @@ public class MainActivity extends AppCompatActivity {
         mainListView.setAdapter(adapter);
         mainListView.setLayoutManager(new LinearLayoutManager(this));
 
-        //mostly invisible button to reach the test layout
-//        Button testButton = findViewById(R.id.test_button);
-//        testButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent testIntent = new Intent(MainActivity.this, TestActivity.class);
-//                startActivity(testIntent);
-//            }
-//        });
+    }
+
+    @Override
+    public void onNewIntent(Intent fromNewNote) {
+
+        if (fromNewNote.hasExtra("note")) Log.v("Note from intent", fromNewNote.getSerializableExtra("note").toString());
+
+        super.onNewIntent(fromNewNote);
 
     }
+
+
 
 }
