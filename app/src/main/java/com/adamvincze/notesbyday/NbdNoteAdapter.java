@@ -53,7 +53,7 @@ class NbdNoteAdapter extends RecyclerView.Adapter<NbdNoteAdapter.ViewHolder> {
 
         // Set item views based on your views and data model
         TextView textView = viewHolder.noteTextView;
-        textView.setText(note.getNoteText());
+        textView.setText(note.getText());
     }
 
     // Returns the total count of items in the list

@@ -12,7 +12,16 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.thedeanda.lorem.Lorem;
+import com.thedeanda.lorem.LoremIpsum;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+
 import java.util.ArrayList;
+import java.util.Random;
+
+import static com.adamvincze.notesbyday.NbdHelper.formatDate;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     ImageButton nextButton;
     FloatingActionButton newNoteFab;
     RecyclerView mainListView;
+
+    LocalDate selectedDate = new LocalDate();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,15 +47,15 @@ public class MainActivity extends AppCompatActivity {
 
         //initially show the current date at the open of the app
         dateText = findViewById(R.id.current_date_view);
-        dateText.setText(NbdHelper.formatDate(NbdApplication.getNbdDate()));
+        dateText.setText(formatDate(selectedDate));
 
         //the previous day button on the note card
         previousButton = findViewById(R.id.previous_day_button);
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NbdApplication.setNbdDate(NbdApplication.getNbdDate().minusDays(1));
-                dateText.setText(NbdHelper.formatDate(NbdApplication.getNbdDate()));
+                selectedDate = selectedDate.minusDays(1);
+                dateText.setText(formatDate(selectedDate));
             }
         });
 
@@ -53,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NbdApplication.setNbdDate(NbdApplication.getNbdDate().plusDays(1));
-                dateText.setText(NbdHelper.formatDate(NbdApplication.getNbdDate()));
+                selectedDate = selectedDate.plusDays(1);
+                dateText.setText(formatDate(selectedDate));
             }
         });
 
@@ -64,16 +75,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent newNoteIntent = new Intent(MainActivity.this, NoteActivity.class);
-                //startActivityForResult(newNoteIntent, 0);
-                startActivity(newNoteIntent);
+                NbdNote newNote = new NbdNote();
+                newNote.setDate(selectedDate);
+                newNote.setAdded(new LocalDateTime());
+                newNoteIntent.putExtra("note", newNote);
+                startActivityForResult(newNoteIntent, NbdApplication.NEW_NOTE);
             }
         });
 
         mainListView = findViewById(R.id.main_list_view);
 
         //for testing purposes
-        ArrayList<NbdNote> testList = NbdHelper.sampleNoteList(5, NbdApplication.getNbdDate());
-//        Log.v("NbdNoteListTest", testList.toString());
+        ArrayList<NbdNote> testList = sampleNoteList(5, selectedDate);
 
         NbdNoteAdapter adapter = new NbdNoteAdapter(this, testList);
         mainListView.setAdapter(adapter);
@@ -82,14 +95,79 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onNewIntent(Intent fromNewNote) {
+    public void onActivityResult(int requestCode, int resultCode, Intent fromNewNote) {
 
-        if (fromNewNote.hasExtra("note")) Log.v("Note from intent", fromNewNote.getSerializableExtra("note").toString());
-
-        super.onNewIntent(fromNewNote);
+        //TODO: handle the result properly, this is only for testing purposes
+        switch (requestCode) {
+            case NbdApplication.NEW_NOTE:
+                switch (resultCode) {
+                    case RESULT_OK:
+                        Log.v("Note from intent", fromNewNote.getSerializableExtra("note").toString());
+                        break;
+                    case NbdApplication.EMPTY_NOTE:
+                        Log.v("Note from intent", "Doesn't exist");
+                        break;
+                    case RESULT_CANCELED:
+                        Log.v("Note from intent", "RESULT_CANCELED");
+                        break;
+                    default:
+                        Log.v("Note from intent", "Unexpected result");
+                        break;
+                }
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, fromNewNote);
+                break;
+        }
 
     }
 
+    //temporary implementation to make a list of 5-10 notes plus and minus n days from a given Localdate
+    //TODO cleanup after finalizing note handling
+    static ArrayList<NbdNote> sampleNoteList(int n, LocalDate date) {
 
+        ArrayList<NbdNote> list = new ArrayList<>();
+        Lorem lorem = LoremIpsum.getInstance();
+        Random r = new Random();
+
+        int j = r.nextInt(5);
+        for (int k = 0; k < (5 + j); k++) {
+            NbdNote note = new NbdNote();
+            note.setDate(date);
+            note.setText(formatDate(date) + " - " + lorem.getWords(5, 10));
+            list.add(note);
+        }
+
+        for (int i = 0; i < n; i++) {
+            j = r.nextInt(5);
+            LocalDate plus = date.plusDays(i);
+            for (int k = 0; k < (5 + j); k++) {
+                NbdNote note = new NbdNote();
+                note.setDate(plus);
+                note.setText(formatDate(plus) + " - " + lorem.getWords(5, 10));
+                list.add(note);
+            }
+            j = r.nextInt(5);
+            LocalDate minus = date.minusDays(i);
+            for (int k = 0; k < (5 + j); k++) {
+                NbdNote note = new NbdNote();
+                note.setDate(minus);
+                note.setText(formatDate(minus) + " - " + lorem.getWords(5, 10));
+                list.add(note);
+            }
+        }
+
+        return list;
+
+    }
+
+//    @Override
+//    public void onNewIntent(Intent intent) {
+//
+//        if (intent.hasExtra("note")) Log.v("Note from intent", fromNewNote.getSerializableExtra("note").toString());
+//
+//        super.onNewIntent(intent);
+//
+//     }
 
 }
