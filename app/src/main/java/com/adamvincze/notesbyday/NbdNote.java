@@ -4,9 +4,11 @@ package com.adamvincze.notesbyday;
 
 import org.joda.time.LocalDate;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
-@Data class NbdNote {
+@Data class NbdNote implements Serializable {
     private LocalDate noteDate;
     private String noteText;
 

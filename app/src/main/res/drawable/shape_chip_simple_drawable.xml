@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid android:color="@color/colorAccent" />
+    <solid android:color="@color/colorPrimaryDark" />
 
     <padding
         android:bottom="@dimen/chip_padding"
@@ -9,5 +9,5 @@
         android:right="@dimen/chip_padding"
         android:top="@dimen/chip_padding" />
 
-    <corners android:radius="30dp" />
+    <corners android:radius="32dp" />
 </shape>

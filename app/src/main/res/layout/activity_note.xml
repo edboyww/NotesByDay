@@ -5,10 +5,23 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+
+    <!--The toolbar-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/note_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryLight"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        tools:ignore="UnusedAttribute"
+        />
 
     <!--The chips with the date
         TODO: and the category tag -->
@@ -17,19 +30,21 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_weight="0"
+        android:paddingTop="@dimen/large_gap"
+        android:paddingBottom="@dimen/large_gap"
+        android:background="@color/darkerBackground"
         >
 
             <TextView
                 android:id="@+id/date_chip_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_chip_simple_drawable"
                 tools:text="2018.09.23, Saturday"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:textStyle="bold"
+                android:background="@drawable/shape_chip_simple_drawable"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="@dimen/large_gap"
+                android:layout_marginStart="@dimen/large_gap"
+
                 />
 
     </LinearLayout>
@@ -39,10 +54,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/large_gap"
+        android:paddingLeft="@dimen/large_gap"
+        android:paddingEnd="@dimen/large_gap"
+        android:paddingRight="@dimen/large_gap"
         >
 
         <android.support.design.widget.TextInputEditText

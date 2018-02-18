@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--Primary-->
     <color name="colorPrimary">#546e7a</color>
     <color name="colorPrimaryDark">#29434e</color>
     <color name="colorPrimaryLight">#819ca9</color>
-    <color name="colorAccent">#fdd835</color>
-    <color name="colorAccentDark">#c6a700</color>
+
+    <!--Accent-->
+    <color name="colorAccent">#d81b60</color>
+    <color name="colorAccentDark">#a00037</color>
+    <!--TODO: accent: #00796b accentdark: #004c40 accentlight: #48a999-->
+
+    <!--Other-->
     <color name="colorDefaultText">#333333</color>
     <color name="darkerBackground">#EEEEEE</color>
     <color name="dividerColor">#DDDDDD</color>
+
 </resources>

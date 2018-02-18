@@ -11,4 +11,5 @@
     <string name="day_after_tomorrow">Holnapután</string>
     <string name="yesterday">Tegnap</string>
     <string name="day_before_yesterday">Tegnapelőtt</string>
+    <string name="note_saved">A jegyzet elmentve</string>
 </resources>

@@ -2,19 +2,24 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.adamvincze.notesbyday">
+    package="com.adamvincze.notesbyday"
+    >
 
-    <!--TODO: deal with Google app indexing AND backup-->
+    <!--TODO: deal with Google app indexing, backup and launcher icon-->
     <application
         android:name="com.adamvincze.notesbyday.NbdApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/nbd_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/nbd_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -30,7 +35,8 @@
             <!-- The meta-data element is needed for versions lower than 4.1 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.adamvincze.notesbyday.MainActivity" />
+                android:value="com.adamvincze.notesbyday.MainActivity"
+                />
         </activity>
 
 

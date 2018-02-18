@@ -10,4 +10,5 @@
     <string name="day_after_tomorrow">Day after tomorrow</string>
     <string name="yesterday">Yesterday</string>
     <string name="day_before_yesterday">Day before yesterday</string>
+    <string name="note_saved">Note saved</string>
 </resources>
