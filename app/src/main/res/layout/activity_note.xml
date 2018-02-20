@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--Layout for the note taking part of the application-->
+<?xml version="1.0" encoding="utf-8"?><!--Layout for the note taking part of the application-->
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_note_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <!--The toolbar-->
     <android.support.v7.widget.Toolbar
@@ -21,7 +22,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:ignore="UnusedAttribute" />
+        tools:ignore="UnusedAttribute"
+        />
 
     <!--The chips with the date
         TODO: and the category tag -->
@@ -30,15 +32,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
+        android:elevation="4dp"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/large_gap"
         android:paddingTop="@dimen/small_gap"
-        android:elevation="4dp"
         app:layout_constraintBottom_toTopOf="@+id/note_text_input_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/note_toolbar"
-        tools:ignore="UnusedAttribute">
+        tools:ignore="UnusedAttribute"
+        >
 
         <TextView
             android:id="@+id/date_chip_view"
@@ -66,7 +69,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/note_chip_lane">
+        app:layout_constraintTop_toBottomOf="@+id/note_chip_lane"
+        >
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/note_edit_text"
@@ -78,8 +82,9 @@
             android:scrollbars="vertical"
             android:textCursorDrawable="@null"
             android:textSize="24sp"
+            tools:ignore="UnusedAttribute"
             tools:text="Lorem ipsum dolor sit"
-            tools:ignore="UnusedAttribute"/>
+            />
 
     </android.support.design.widget.TextInputLayout>
 

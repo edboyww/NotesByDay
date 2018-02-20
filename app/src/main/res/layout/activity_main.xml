@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.adamvincze.notesbyday.MainActivity">
+    tools:context="com.adamvincze.notesbyday.MainActivity"
+    >
 
     <!--The toolbar-->
     <android.support.v7.widget.Toolbar
@@ -37,7 +39,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_toolbar"
         app:layout_constraintVertical_bias="0.0"
-        tools:targetApi="lollipop">
+        tools:targetApi="lollipop"
+        >
 
         <!--Previous day button-->
         <ImageButton
@@ -50,7 +53,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="RtlHardcoded" />
+            tools:ignore="RtlHardcoded"
+            />
 
         <!--Date-->
         <TextView
@@ -67,7 +71,8 @@
             app:layout_constraintStart_toEndOf="@+id/previous_day_button"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlHardcoded"
-            tools:text="1983 February 8., Saturday" />
+            tools:text="1983 February 8., Saturday"
+            />
 
         <!--Next day button-->
         <ImageButton
@@ -80,7 +85,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="RtlHardcoded" />
+            tools:ignore="RtlHardcoded"
+            />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -96,7 +102,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/date_bar"
-        tools:listitem="@layout/note_item" />
+        tools:listitem="@layout/note_item"
+        />
 
     <!--The FAB-->
     <android.support.design.widget.FloatingActionButton
@@ -112,6 +119,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="@color/colorAccentDark"
         app:useCompatPadding="true"
-        tools:ignore="RtlHardcoded" />
+        tools:ignore="RtlHardcoded"
+        />
 
 </android.support.constraint.ConstraintLayout>
