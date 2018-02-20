@@ -5,4 +5,5 @@
     <dimen name="small_gap">8dp</dimen>
     <dimen name="chip_padding">12dp</dimen>
     <dimen name="large_touch_size">64dp</dimen>
+    <dimen name="small_touch_size">48dp</dimen>
 </resources>

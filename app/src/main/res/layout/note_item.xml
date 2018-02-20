@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_height="@dimen/large_touch_size"
     >
 
     <TextView
         android:id="@+id/note_text"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/large_touch_size"
+        android:layout_height="0dp"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/large_gap"
         android:paddingLeft="@dimen/large_gap"
         android:paddingEnd="@dimen/large_gap"
         android:paddingRight="@dimen/large_gap"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
+        android:paddingTop="@dimen/large_gap"
+        android:paddingBottom="@dimen/large_gap"
         android:textSize="16sp"
         android:maxLines="1"
         android:ellipsize="end"
-        tools:text="Lorem ipsum dolor sit amet"
+        android:layout_weight="1"
+        tools:text="@tools:sample/lorem/random"
         />
 
-    <!--The view which makes the gradient effect-->
+    <!--The view which makes the gradient effect, must have relative or constraint layout!-->
     <!--<View-->
         <!--android:layout_width="@dimen/large_touch_size"-->
         <!--android:layout_height="@dimen/large_touch_size"-->
@@ -39,7 +41,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/dividerColor"
-        android:layout_alignBottom="@id/note_text"
         />
 
-</RelativeLayout>
+</LinearLayout>

@@ -58,6 +58,7 @@ public class NoteActivity extends AppCompatActivity {
         dateChip.setText(NbdHelper.formatDate(selectedDate));
 
         //The editor area
+        //TODO give the focus on oncreate
         noteEditor = findViewById(R.id.note_edit_text);
         noteEditor.setText(note.getText());
 

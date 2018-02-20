@@ -1,79 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--Layout for the note taking part of the application-->
 
-<!--Linear layout for the note and the metadata-->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_note_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <!--The toolbar-->
     <android.support.v7.widget.Toolbar
         android:id="@+id/note_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintBottom_toTopOf="@+id/note_chip_lane"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:ignore="UnusedAttribute"
-        />
+        tools:ignore="UnusedAttribute" />
 
     <!--The chips with the date
         TODO: and the category tag -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/note_chip_lane"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
         android:orientation="horizontal"
-        android:layout_weight="0"
-        android:paddingTop="@dimen/large_gap"
         android:paddingBottom="@dimen/large_gap"
-        android:background="@color/darkerBackground"
-        >
+        android:paddingTop="@dimen/small_gap"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/note_text_input_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/note_toolbar"
+        tools:ignore="UnusedAttribute">
 
-            <TextView
-                android:id="@+id/date_chip_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="2018.09.23, Saturday"
-                android:background="@drawable/shape_chip_simple_drawable"
-                android:textColor="@android:color/white"
-                android:layout_marginLeft="@dimen/large_gap"
-                android:layout_marginStart="@dimen/large_gap"
+        <TextView
+            android:id="@+id/date_chip_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/large_gap"
+            android:layout_marginStart="@dimen/large_gap"
+            android:background="@drawable/shape_chip_simple_drawable_light"
+            android:textColor="@color/colorPrimaryDark"
+            tools:text="2018.09.23, Saturday"
 
-                />
+            />
 
     </LinearLayout>
 
     <!--A full screen text input (it only seems so, the divider is invisible)-->
     <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
+        android:id="@+id/note_text_input_layout"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingStart="@dimen/large_gap"
-        android:paddingLeft="@dimen/large_gap"
         android:paddingEnd="@dimen/large_gap"
+        android:paddingLeft="@dimen/large_gap"
         android:paddingRight="@dimen/large_gap"
-        >
+        android:paddingStart="@dimen/large_gap"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/note_chip_lane">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/note_edit_text"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:scrollbars="vertical"
             android:background="@null"
             android:fontFamily="sans-serif-light"
-            android:textSize="24sp"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
             android:textCursorDrawable="@null"
+            android:textSize="24sp"
             tools:text="Lorem ipsum dolor sit"
-            />
+            tools:ignore="UnusedAttribute"/>
 
     </android.support.design.widget.TextInputLayout>
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

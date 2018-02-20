@@ -102,7 +102,11 @@ public class MainActivity extends AppCompatActivity {
             case NbdApplication.NEW_NOTE:
                 switch (resultCode) {
                     case RESULT_OK:
-                        Log.v("Note from intent", fromNewNote.getSerializableExtra("note").toString());
+                        NbdNote newNote = (NbdNote) fromNewNote.getSerializableExtra("note");
+                        //TODO: test if this solution works
+                        selectedDate = newNote.getDate();
+                        dateText.setText(formatDate(selectedDate));
+                        Log.v("Note from intent", newNote.toString());
                         break;
                     case NbdApplication.EMPTY_NOTE:
                         Log.v("Note from intent", "Doesn't exist");

@@ -26,11 +26,12 @@ dependencies {
     implementation "com.android.support:support-core-utils:27.0.2"
     implementation 'com.android.support:design:27.0.2'
     implementation 'com.android.support:support-annotations:27.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     //Joda Time for date management
     implementation 'joda-time:joda-time:2.9.9'
 
-    //project Lombk for @Data annotation
+    //project Lombok for @Data annotation
     compileOnly "org.projectlombok:lombok:1.16.20"
     annotationProcessor 'org.projectlombok:lombok:1.16.20'
 
