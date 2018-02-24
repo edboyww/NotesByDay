@@ -126,39 +126,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //temporary implementation to make a list of 5-10 notes plus and minus n days from a given Localdate
+    //temporary implementation to make a list of max n notes for a given Localdate
     //TODO cleanup after finalizing note handling
-    static ArrayList<NbdNote> sampleNoteList(int n, LocalDate date) {
+    static ArrayList<NbdNote> sampleViewList(int n, LocalDate date) {
 
         ArrayList<NbdNote> list = new ArrayList<>();
         Lorem lorem = LoremIpsum.getInstance();
-        Random r = new Random();
+        Random random = new Random();
 
-        int j = r.nextInt(5);
-        for (int k = 0; k < (5 + j); k++) {
+        int j = random.nextInt(n);
+        for (int k = 0; k < j; k++) {
             NbdNote note = new NbdNote();
             note.setDate(date);
             note.setText(formatDate(date) + " - " + lorem.getWords(5, 10));
+            if (random.nextBoolean()) {
+                
+            } else note.setAdded();
             list.add(note);
-        }
-
-        for (int i = 0; i < n; i++) {
-            j = r.nextInt(5);
-            LocalDate plus = date.plusDays(i);
-            for (int k = 0; k < (5 + j); k++) {
-                NbdNote note = new NbdNote();
-                note.setDate(plus);
-                note.setText(formatDate(plus) + " - " + lorem.getWords(5, 10));
-                list.add(note);
-            }
-            j = r.nextInt(5);
-            LocalDate minus = date.minusDays(i);
-            for (int k = 0; k < (5 + j); k++) {
-                NbdNote note = new NbdNote();
-                note.setDate(minus);
-                note.setText(formatDate(minus) + " - " + lorem.getWords(5, 10));
-                list.add(note);
-            }
         }
 
         return list;
