@@ -6,10 +6,10 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
 //Collecting here all the helper methods in the app
-final class NbdHelper {
+public final class NbdHelper {
 
     //Formatting a Joda LocalDate object as <long local date>, <day of the week> or a day string
-    static String formatDate(LocalDate date) {
+    public static String formatDate(LocalDate date) {
 
         Context context = NbdApplication.getNbdContext();
         LocalDate comp = LocalDate.now();

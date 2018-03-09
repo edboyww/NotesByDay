@@ -1,4 +1,4 @@
-package com.adamvincze.notesbyday;
+package com.adamvincze.notesbyday.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,40 +12,48 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adamvincze.notesbyday.NbdApplication;
+import com.adamvincze.notesbyday.NbdHelper;
+import com.adamvincze.notesbyday.R;
+import com.adamvincze.notesbyday.data.Note;
+
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class NoteActivity extends AppCompatActivity {
 
     LocalDate selectedDate;
-    NbdNote note;
+    Note note;
 
-    Toolbar noteToolbar;
+    @BindView(R.id.note_toolbar) Toolbar noteToolbar;
     ActionBar noteActionBar;
-    TextView dateChip;
-    TextInputEditText noteEditor;
+    @BindView(R.id.date_chip_view) TextView dateChip;
+    @BindView(R.id.note_edit_text) TextInputEditText noteEditor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
+        ButterKnife.bind(this);
 
         //Getting the note object out of the intent bundle if exists, if not, creation of a new one
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            note = (NbdNote) extras.getSerializable("note");
+            note = (Note) extras.getSerializable("note");
             assert note != null;
             selectedDate = note.getDate();
         } else {
             selectedDate = new LocalDate();
-            note = new NbdNote();
+            note = new Note();
             note.setDate(selectedDate);
             note.setAdded(new LocalDateTime());
         }
 
         //The Toolbar
-        noteToolbar = findViewById(R.id.note_toolbar);
         setSupportActionBar(noteToolbar);
         noteActionBar = getSupportActionBar();
         assert noteActionBar != null;
@@ -54,12 +62,9 @@ public class NoteActivity extends AppCompatActivity {
         noteActionBar.setDisplayHomeAsUpEnabled(true);
 
         //The Chip
-        dateChip = findViewById(R.id.date_chip_view);
         dateChip.setText(NbdHelper.formatDate(selectedDate));
 
         //The editor area
-        //TODO give the focus on oncreate
-        noteEditor = findViewById(R.id.note_edit_text);
         noteEditor.setText(note.getText());
 
     }

@@ -11,6 +11,11 @@ android {
         versionCode 1
         versionName "0.0.1"
 //        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
     buildTypes {
         release {
@@ -23,24 +28,43 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    implementation 'com.android.support:support-core-utils:27.0.2'
-    implementation 'com.android.support:design:27.0.2'
-    implementation 'com.android.support:support-annotations:27.0.2'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    //Joda Time for date management
-    implementation 'joda-time:joda-time:2.9.9'
+
+    def supportVer = "27.1.0"
+    //Support libraries
+    implementation "com.android.support:appcompat-v7:$supportVer"
+    implementation "com.android.support:support-core-utils:$supportVer"
+    implementation "com.android.support:design:$supportVer"
+    implementation "com.android.support:support-annotations:$supportVer"
+    implementation "com.android.support.constraint:constraint-layout:1.0.2"
+
     //project Lombok for @Data annotation
-    compileOnly 'org.projectlombok:lombok:1.16.20'
-    annotationProcessor 'org.projectlombok:lombok:1.16.20'
+    def lombokVer = "1.16.20"
+    compileOnly "org.projectlombok:lombok:$lombokVer"
+    annotationProcessor "org.projectlombok:lombok:$lombokVer"
+
+    //Room persistence
+    def roomVer = "1.0.0"
+    implementation "android.arch.persistence.room:runtime:$roomVer"
+    annotationProcessor "android.arch.persistence.room:compiler:$roomVer"
+
+    def daggerVer = "2.14.1"
+    // Dagger core
+    compileOnly "com.google.dagger:dagger:$daggerVer"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVer"
+    // Dagger Android
+    implementation "com.google.dagger:dagger-android-support:$daggerVer"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVer"
+
+    def butterVer = "8.8.1"
+    //Butter Knife for binding
+    implementation "com.jakewharton:butterknife:$butterVer"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterVer"
+
     //Lorem ipsum generator
     implementation 'com.thedeanda:lorem:2.1'
-    // Dagger core
-    annotationProcessor "com.google.dagger:dagger-compiler:2.14.1"
-    compile "com.google.dagger:dagger:2.14.1"
-    // Dagger Android
-    annotationProcessor "com.google.dagger:dagger-android-processor:2.14.1"
-    compile "com.google.dagger:dagger-android-support:2.14.1"
+
+    //Joda Time for date management
+    implementation 'joda-time:joda-time:2.9.9'
 
     //Test libraries
     //    testImplementation 'junit:junit:4.12'

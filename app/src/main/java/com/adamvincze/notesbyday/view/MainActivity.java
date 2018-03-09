@@ -1,4 +1,4 @@
-package com.adamvincze.notesbyday;
+package com.adamvincze.notesbyday.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +8,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.adamvincze.notesbyday.NbdApplication;
+import com.adamvincze.notesbyday.NoteListAdapter;
+import com.adamvincze.notesbyday.R;
+import com.adamvincze.notesbyday.data.Note;
+import com.adamvincze.notesbyday.di.AppModule;
+import com.adamvincze.notesbyday.di.RoomModule;
+import com.adamvincze.notesbyday.repository.NoteRepository;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 
@@ -21,17 +27,25 @@ import org.joda.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 import static com.adamvincze.notesbyday.NbdHelper.formatDate;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    Toolbar myToolbar;
-    TextView dateText;
-    ImageButton previousButton;
-    ImageButton nextButton;
-    FloatingActionButton newNoteFab;
-    RecyclerView mainListView;
+    @BindView(R.id.main_toolbar) Toolbar mainToolbar;
+    @BindView(R.id.date_bar) TextView currentDateView;
+    @BindView(R.id.previous_day_button) ImageButton previousButton;
+    @BindView(R.id.next_day_button) ImageButton nextButton;
+    @BindView(R.id.new_note_fab) FloatingActionButton newNoteFab;
+    @BindView(R.id.main_list_view) RecyclerView mainListView;
+
+    @Inject public NoteRepository noteRepository;
 
     LocalDate selectedDate = new LocalDate();
 
@@ -40,58 +54,52 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        DaggerAppComponent.builder()
+                .appModule(new AppModule(getApplication()))
+                .roomModule(new RoomModule(getApplication()))
+                .build()
+                .inject(this);
 
         //putting the toolbar on top in the support library
-        myToolbar = findViewById(R.id.main_toolbar);
-        setSupportActionBar(myToolbar);
+        setSupportActionBar(mainToolbar);
 
         //initially show the current date at the open of the app
-        dateText = findViewById(R.id.current_date_view);
-        dateText.setText(formatDate(selectedDate));
-
-        //the previous day button on the note card
-        previousButton = findViewById(R.id.previous_day_button);
-        previousButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectedDate = selectedDate.minusDays(1);
-                dateText.setText(formatDate(selectedDate));
-            }
-        });
-
-        //the next day button on the note card
-        nextButton = findViewById(R.id.next_day_button);
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectedDate = selectedDate.plusDays(1);
-                dateText.setText(formatDate(selectedDate));
-            }
-        });
-
-        //the New note FAB, passing the current date
-        newNoteFab = findViewById(R.id.new_note_fab);
-        newNoteFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent newNoteIntent = new Intent(MainActivity.this, NoteActivity.class);
-                NbdNote newNote = new NbdNote();
-                newNote.setDate(selectedDate);
-                newNote.setAdded(new LocalDateTime());
-                newNoteIntent.putExtra("note", newNote);
-                startActivityForResult(newNoteIntent, NbdApplication.NEW_NOTE);
-            }
-        });
-
-        mainListView = findViewById(R.id.main_list_view);
+        currentDateView.setText(formatDate(selectedDate));
 
         //for testing purposes
-        ArrayList<NbdNote> testList = sampleNoteList(5, selectedDate);
+        ArrayList<Note> testList = sampleNoteList(5, selectedDate);
 
-        NbdNoteAdapter adapter = new NbdNoteAdapter(this, testList);
+        NoteListAdapter adapter = new NoteListAdapter(this, testList);
         mainListView.setAdapter(adapter);
         mainListView.setLayoutManager(new LinearLayoutManager(this));
 
+    }
+
+    //listener of the previous day button on the note card
+    @OnClick(R.id.previous_day_button)
+    public void previousDay() {
+        selectedDate = selectedDate.minusDays(1);
+        currentDateView.setText(formatDate(selectedDate));
+    }
+
+    //listener of the next day button on the note card
+    @OnClick(R.id.next_day_button)
+    public void nextDay() {
+        selectedDate = selectedDate.plusDays(1);
+        currentDateView.setText(formatDate(selectedDate));
+    }
+
+    //listener of the New note FAB, passing the current date
+    @OnClick(R.id.new_note_fab)
+    public void newNote() {
+        Intent newNoteIntent = new Intent(MainActivity.this, NoteActivity.class);
+        Note newNote = new Note();
+        newNote.setDate(selectedDate);
+        newNote.setAdded(new LocalDateTime());
+        newNoteIntent.putExtra("note", newNote);
+        startActivityForResult(newNoteIntent, NbdApplication.NEW_NOTE);
     }
 
     @Override
@@ -102,10 +110,10 @@ public class MainActivity extends AppCompatActivity {
             case NbdApplication.NEW_NOTE:
                 switch (resultCode) {
                     case RESULT_OK:
-                        NbdNote newNote = (NbdNote) fromNewNote.getSerializableExtra("note");
+                        Note newNote = (Note) fromNewNote.getSerializableExtra("note");
                         //TODO: test if this solution works
                         selectedDate = newNote.getDate();
-                        dateText.setText(formatDate(selectedDate));
+                        currentDateView.setText(formatDate(selectedDate));
                         Log.v("Note from intent", newNote.toString());
                         break;
                     case NbdApplication.EMPTY_NOTE:
@@ -128,19 +136,19 @@ public class MainActivity extends AppCompatActivity {
 
     //temporary implementation to make a list of max n notes for a given Localdate
     //TODO cleanup after finalizing note handling
-    static ArrayList<NbdNote> sampleViewList(int n, LocalDate date) {
+    static ArrayList<Note> sampleNoteList(int n, LocalDate date) {
 
-        ArrayList<NbdNote> list = new ArrayList<>();
+        ArrayList<Note> list = new ArrayList<>();
         Lorem lorem = LoremIpsum.getInstance();
         Random random = new Random();
 
         int j = random.nextInt(n);
         for (int k = 0; k < j; k++) {
-            NbdNote note = new NbdNote();
+            Note note = new Note();
             note.setDate(date);
             note.setText(formatDate(date) + " - " + lorem.getWords(5, 10));
             if (random.nextBoolean()) {
-                
+
             } else note.setAdded();
             list.add(note);
         }
