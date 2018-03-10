@@ -16,6 +16,7 @@ import com.adamvincze.notesbyday.NoteListAdapter;
 import com.adamvincze.notesbyday.R;
 import com.adamvincze.notesbyday.data.Note;
 import com.adamvincze.notesbyday.di.AppModule;
+import com.adamvincze.notesbyday.di.DaggerAppComponent;
 import com.adamvincze.notesbyday.di.RoomModule;
 import com.adamvincze.notesbyday.repository.NoteRepository;
 import com.thedeanda.lorem.Lorem;
@@ -148,8 +149,8 @@ public class MainActivity extends AppCompatActivity {
             note.setDate(date);
             note.setText(formatDate(date) + " - " + lorem.getWords(5, 10));
             if (random.nextBoolean()) {
-
-            } else note.setAdded();
+                note.setAdded(new LocalDateTime()); //notgood!
+            } else note.setAdded(new LocalDateTime());
             list.add(note);
         }
 
