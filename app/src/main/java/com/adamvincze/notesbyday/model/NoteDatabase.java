@@ -1,0 +1,30 @@
+package com.adamvincze.notesbyday.model;
+
+//Room DB for the notes
+
+import android.arch.persistence.room.Database;
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
+import android.content.Context;
+
+@Database(entities = {Note.class}, version = NoteDatabase.VERSION)
+@TypeConverters({ConvertersForNoteDb.class})
+public abstract class NoteDatabase extends RoomDatabase {
+
+    static final int VERSION = 1;
+
+    private static NoteDatabase INSTANCE;
+
+    public static NoteDatabase getDatabase(Context context) {
+        if (INSTANCE == null) {
+            INSTANCE =
+                    Room.databaseBuilder(context.getApplicationContext(), NoteDatabase.class, "note_db")
+                            .build();
+        }
+        return INSTANCE;
+    }
+
+    public abstract NoteDao getNoteDao();
+
+}

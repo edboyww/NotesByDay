@@ -14,10 +14,6 @@ import android.widget.TextView;
 import com.adamvincze.notesbyday.NbdApplication;
 import com.adamvincze.notesbyday.R;
 import com.adamvincze.notesbyday.model.Note;
-import com.adamvincze.notesbyday.di.AppModule;
-import com.adamvincze.notesbyday.di.DaggerAppComponent;
-import com.adamvincze.notesbyday.di.RoomModule;
-import com.adamvincze.notesbyday.repository.NoteRepository;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 
@@ -26,8 +22,6 @@ import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.new_note_fab) FloatingActionButton newNoteFab;
     @BindView(R.id.main_list_view) RecyclerView mainListView;
 
-    @Inject public NoteRepository noteRepository;
-
     LocalDate selectedDate = new LocalDate();
 
     @Override
@@ -55,12 +47,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        DaggerAppComponent.builder()
-                .appModule(new AppModule(getApplication()))
-                .roomModule(new RoomModule(getApplication()))
-                .build()
-                .inject(this);
 
         //putting the toolbar on top in the support library
         setSupportActionBar(mainToolbar);

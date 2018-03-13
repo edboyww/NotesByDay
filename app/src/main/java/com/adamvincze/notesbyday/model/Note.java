@@ -12,8 +12,8 @@ import java.io.Serializable;
 
 import lombok.Data;
 
-@Data
 @Entity
+@Data
 public class Note implements Serializable {
 
     @PrimaryKey(autoGenerate = true)

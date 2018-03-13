@@ -29,50 +29,30 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    /*
-    From Google
-    -----------
-     */
-
     //Support libraries
-    def supportVer = "27.1.0"
+        def supportVer = "27.1.0"
     implementation "com.android.support:appcompat-v7:$supportVer"
     implementation "com.android.support:support-core-utils:$supportVer"
     implementation "com.android.support:design:$supportVer"
     implementation "com.android.support:support-annotations:$supportVer"
     implementation "com.android.support.constraint:constraint-layout:1.0.2"
 
-    //Architecture
-    //------------
-    //Room persistence
-    def roomVer = "1.0.0"
-    implementation "android.arch.persistence.room:runtime:$roomVer"
-    annotationProcessor "android.arch.persistence.room:compiler:$roomVer"
-    //Lifecycle
-    implementation "android.arch.lifecycle:extensions:1.1.0"
-    //Paging
-    implementation "android.arch.paging:runtime:1.0.0-alpha6"
-    //Architecture annotation processor
-    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
-
-    //Dagger2 for dependency injection
-    def daggerVer = "2.14.1"
-    // Dagger core
-    compileOnly "com.google.dagger:dagger:$daggerVer"
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVer"
-    // Dagger Android
-    implementation "com.google.dagger:dagger-android-support:$daggerVer"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVer"
-
-    /*
-    Third party
-    -----------
-     */
-
     //Project Lombok for @Data annotation
     def lombokVer = "1.16.20"
     compileOnly "org.projectlombok:lombok:$lombokVer"
     annotationProcessor "org.projectlombok:lombok:$lombokVer"
+
+    //Architecture
+    /*Room persistence*/
+    def roomVer = "1.0.0"
+    implementation "android.arch.persistence.room:runtime:$roomVer"
+    annotationProcessor "android.arch.persistence.room:compiler:$roomVer"
+    /*Lifecycle*/
+    implementation "android.arch.lifecycle:extensions:1.1.0"
+    /*Paging*/
+    implementation "android.arch.paging:runtime:1.0.0-alpha6"
+    /*Architecture annotation processor*/
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
 
     //Butter Knife for binding
     def butterVer = "8.8.1"
