@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.adamvincze.notesbyday.NbdApplication;
 import com.adamvincze.notesbyday.NbdHelper;
 import com.adamvincze.notesbyday.R;
-import com.adamvincze.notesbyday.data.Note;
+import com.adamvincze.notesbyday.model.Note;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;

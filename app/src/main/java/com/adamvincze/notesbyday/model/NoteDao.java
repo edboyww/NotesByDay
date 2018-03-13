@@ -1,4 +1,4 @@
-package com.adamvincze.notesbyday.data;
+package com.adamvincze.notesbyday.model;
 
 //DAO for the Note class
 
@@ -8,6 +8,8 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+
+import org.joda.time.LocalDate;
 
 import java.util.List;
 
@@ -20,11 +22,14 @@ public interface NoteDao {
     @Query("SELECT * FROM Note")
     LiveData<List<Note>> findAll();
 
+    @Query("SELECT * FROM Note WHERE date=:date")
+    LiveData<List<Note>> findByDay(LocalDate date);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insert(Note product);
+    long insert(Note note);
 
     @Delete
-    int delete(Note product);
+    int delete(Note note);
 
 }
 

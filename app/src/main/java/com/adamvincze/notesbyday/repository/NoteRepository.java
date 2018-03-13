@@ -2,7 +2,9 @@ package com.adamvincze.notesbyday.repository;
 
 import android.arch.lifecycle.LiveData;
 
-import com.adamvincze.notesbyday.data.Note;
+import com.adamvincze.notesbyday.model.Note;
+
+import org.joda.time.LocalDate;
 
 import java.util.List;
 
@@ -12,8 +14,10 @@ public interface NoteRepository {
 
     LiveData<List<Note>> findAll();
 
-    long insert(Note product);
+    LiveData<List<Note>> findByDay(LocalDate date);
 
-    int delete(Note product);
+    long insert(Note note);
+
+    int delete(Note note);
 
 }

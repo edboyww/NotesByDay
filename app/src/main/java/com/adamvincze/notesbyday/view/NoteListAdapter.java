@@ -1,6 +1,6 @@
-package com.adamvincze.notesbyday;
+package com.adamvincze.notesbyday.view;
 
-//RecyclerView Adapter for the notes list
+//RecyclerView Adapter for the noteList list
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.adamvincze.notesbyday.data.Note;
+import com.adamvincze.notesbyday.R;
+import com.adamvincze.notesbyday.model.Note;
 
 import java.util.List;
 
@@ -29,18 +30,18 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
         }
     }
 
-    //Member variables for the notes and the context
-    private List<Note> mNotes;
-    private Context mContext;
+    //Member variables for the noteList and the context
+    private List<Note> noteList;
+    private Context context;
 
     // Pass in the contact array into the constructor
     public NoteListAdapter(Context context, List<Note> notes) {
-        mNotes = notes;
-        mContext = context;
+        this.noteList = notes;
+        this.context = context;
     }
 
     // Easy access to the context object in the recyclerview
-    private Context getContext() { return mContext; }
+    private Context getContext() { return context; }
 
     // Usually involves inflating a layout from XML and returning the holder
     @Override @NonNull
@@ -55,7 +56,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull NoteListAdapter.ViewHolder viewHolder, int position) {
         // Get the data model based on position
-        Note note = mNotes.get(position);
+        Note note = noteList.get(position);
 
         // Set item views based on your views and data model
         TextView textView = viewHolder.noteTextView;
@@ -65,7 +66,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
     // Returns the total count of items in the list
     @Override
     public int getItemCount() {
-        return mNotes.size();
+        return noteList.size();
     }
 
 }

@@ -2,7 +2,7 @@ package com.adamvincze.notesbyday.di;
 
 import android.app.Application;
 
-import com.adamvincze.notesbyday.data.NoteDao;
+import com.adamvincze.notesbyday.model.NoteDao;
 import com.adamvincze.notesbyday.repository.NoteDatabase;
 import com.adamvincze.notesbyday.repository.NoteRepository;
 import com.adamvincze.notesbyday.view.MainActivity;

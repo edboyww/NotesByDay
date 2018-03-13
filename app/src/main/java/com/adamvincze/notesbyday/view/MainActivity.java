@@ -12,9 +12,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.adamvincze.notesbyday.NbdApplication;
-import com.adamvincze.notesbyday.NoteListAdapter;
 import com.adamvincze.notesbyday.R;
-import com.adamvincze.notesbyday.data.Note;
+import com.adamvincze.notesbyday.model.Note;
 import com.adamvincze.notesbyday.di.AppModule;
 import com.adamvincze.notesbyday.di.DaggerAppComponent;
 import com.adamvincze.notesbyday.di.RoomModule;

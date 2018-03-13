@@ -4,7 +4,7 @@ package com.adamvincze.notesbyday.di;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 
-import com.adamvincze.notesbyday.data.NoteDao;
+import com.adamvincze.notesbyday.model.NoteDao;
 import com.adamvincze.notesbyday.repository.NoteDataSource;
 import com.adamvincze.notesbyday.repository.NoteDatabase;
 import com.adamvincze.notesbyday.repository.NoteRepository;
@@ -31,13 +31,13 @@ public class RoomModule {
 
     @Singleton
     @Provides
-    NoteDao providesProductDao(NoteDatabase noteDatabase) {
+    NoteDao providesNoteDao(NoteDatabase noteDatabase) {
         return noteDatabase.getNoteDao();
     }
 
     @Singleton
     @Provides
-    NoteRepository productRepository(NoteDao noteDao) {
+    NoteRepository noteRepository(NoteDao noteDao) {
         return new NoteDataSource(noteDao);
     }
 

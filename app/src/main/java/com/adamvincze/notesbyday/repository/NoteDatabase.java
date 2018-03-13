@@ -6,8 +6,8 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 
-import com.adamvincze.notesbyday.data.Note;
-import com.adamvincze.notesbyday.data.NoteDao;
+import com.adamvincze.notesbyday.model.Note;
+import com.adamvincze.notesbyday.model.NoteDao;
 
 @Database(entities = {Note.class}, version = NoteDatabase.VERSION)
 @TypeConverters({ConvertersForNoteDb.class})

@@ -1,4 +1,4 @@
-package com.adamvincze.notesbyday.data;
+package com.adamvincze.notesbyday.model;
 
 //The data class for the note instance
 
@@ -12,7 +12,8 @@ import java.io.Serializable;
 
 import lombok.Data;
 
-@Data @Entity
+@Data
+@Entity
 public class Note implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
