@@ -1,7 +1,5 @@
 package com.adamvincze.notesbyday.view;
 
-//RecyclerView Adapter for the noteList list
-
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +16,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * RecyclerView Adapter for the noteList list
+ */
 public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHolder> {
 
     // Provide a direct reference to each of the views within a data item

@@ -27,9 +27,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.adamvincze.notesbyday.NbdHelper.formatDate;
+import static com.adamvincze.notesbyday.Helpers.formatDate;
 
-
+/**
+ * The main activity - view
+ */
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.main_toolbar) Toolbar mainToolbar;

@@ -1,13 +1,14 @@
 package com.adamvincze.notesbyday.model;
 
-//Type converters the Joda time date fields
-
 import android.arch.persistence.room.TypeConverter;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
-public class ConvertersForNoteDb {
+/**
+ * Type converters the Joda time date fields
+ */
+public class Converters {
 
     @TypeConverter
     public static LocalDate toDate(String value) {

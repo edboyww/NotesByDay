@@ -7,7 +7,9 @@ import org.joda.time.LocalDate;
 
 import java.lang.ref.WeakReference;
 
-//Application override class to handle the global state of the chosen date
+/**
+ * Application override class to handle the global state of the chosen date in the Helpers class (for now)
+ */
 public class NbdApplication extends Application {
 
     //Global Context for the sake of resolving resource strings in my helper class because fuck Android ecosystem overall at this point

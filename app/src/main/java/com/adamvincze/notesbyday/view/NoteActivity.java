@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adamvincze.notesbyday.NbdApplication;
-import com.adamvincze.notesbyday.NbdHelper;
+import com.adamvincze.notesbyday.Helpers;
 import com.adamvincze.notesbyday.R;
 import com.adamvincze.notesbyday.model.Note;
 
@@ -23,6 +23,9 @@ import org.joda.time.LocalDateTime;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * The note editor activity - view
+ */
 public class NoteActivity extends AppCompatActivity {
 
     LocalDate selectedDate;
@@ -62,7 +65,7 @@ public class NoteActivity extends AppCompatActivity {
         noteActionBar.setDisplayHomeAsUpEnabled(true);
 
         //The Chip
-        dateChip.setText(NbdHelper.formatDate(selectedDate));
+        dateChip.setText(Helpers.formatDate(selectedDate));
 
         //The editor area
         noteEditor.setText(note.getText());

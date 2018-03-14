@@ -5,8 +5,10 @@ import android.content.Context;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
-//Collecting here all the helper methods in the app
-public final class NbdHelper {
+/**
+ * Collecting here all the helper methods in the app
+ */
+public final class Helpers {
 
     //Formatting a Joda LocalDate object as <long local date>, <day of the week> or a day string
     public static String formatDate(LocalDate date) {

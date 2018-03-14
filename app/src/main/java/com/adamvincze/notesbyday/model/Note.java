@@ -1,7 +1,5 @@
 package com.adamvincze.notesbyday.model;
 
-//The data class for the note instance
-
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -12,6 +10,9 @@ import java.io.Serializable;
 
 import lombok.Data;
 
+/**
+ * The data class for the note instance
+ */
 @Entity
 @Data
 public class Note implements Serializable {
