@@ -58,7 +58,7 @@
 
         <!--Date-->
         <TextView
-            android:id="@+id/current_date_view"
+            android:id="@+id/main_date_textview"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

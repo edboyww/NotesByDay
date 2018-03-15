@@ -33,16 +33,12 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
 
     //Member variables for the noteList and the context
     private List<Note> noteList;
-    private Context context;
+
 
     // Pass in the contact array into the constructor
-    public NoteListAdapter(Context context, List<Note> notes) {
+    NoteListAdapter(List<Note> notes) {
         this.noteList = notes;
-        this.context = context;
     }
-
-    // Easy access to the context object in the recyclerview
-    private Context getContext() { return context; }
 
     // Usually involves inflating a layout from XML and returning the holder
     @Override @NonNull
@@ -67,7 +63,13 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
     // Returns the total count of items in the list
     @Override
     public int getItemCount() {
-        return noteList.size();
+        if (noteList != null) return noteList.size();
+        else return 0;
+    }
+
+    void setNoteList(List<Note> notes) {
+        this.noteList = notes;
+        notifyDataSetChanged();
     }
 
 }

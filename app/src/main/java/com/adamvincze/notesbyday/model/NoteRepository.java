@@ -16,14 +16,10 @@ public class NoteRepository {
 
     private static NoteRepository INSTANCE = null;
     private NoteDao noteDao;
-//    public Map<LocalDate, LiveData<List<Note>>> noteCache;
-//    private LiveData<List<Note>> allNotes;
-//    private LiveData<List<Note>> dailyNotes;
 
     private NoteRepository(Application application) {
         NoteDatabase db = NoteDatabase.getDatabase(application);
         noteDao = db.getNoteDao();
-//        allNotes = noteDao.findAll();/
     }
 
     /**
@@ -79,7 +75,7 @@ public class NoteRepository {
     /**
      * Get daily notes. Not async.
      */
-    public LiveData<List<Note>> getNotesByDay(LocalDate date) {
+    public LiveData<List<Note>> getNotesByDate(LocalDate date) {
         return noteDao.findByDay(date);
     }
 
@@ -105,6 +101,5 @@ public class NoteRepository {
 //            return asyncTaskDao.findByDay(localDates[0]);
 //        }
 //    }
-
 
 }
