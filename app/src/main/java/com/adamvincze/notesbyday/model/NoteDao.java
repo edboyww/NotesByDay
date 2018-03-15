@@ -24,11 +24,14 @@ public interface NoteDao {
     @Query("SELECT * FROM Note WHERE date=:date")
     LiveData<List<Note>> findByDay(LocalDate date);
 
+    @Query("SELECT * FROM Note")
+    LiveData<List<Note>> findAll();
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(Note note);
 
-    @Update
-    int update(Note note);
+//    @Update
+//    int update(Note note);
 
     @Delete
     int delete(Note note);

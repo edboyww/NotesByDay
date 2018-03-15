@@ -6,6 +6,7 @@ import android.arch.lifecycle.LiveData;
 
 import com.adamvincze.notesbyday.model.Note;
 import com.adamvincze.notesbyday.model.NoteDatabase;
+import com.adamvincze.notesbyday.model.NoteRepository;
 
 import org.joda.time.LocalDate;
 
@@ -16,20 +17,17 @@ import java.util.List;
  */
 public class MainListViewModel extends AndroidViewModel {
 
-    private LiveData<List<Note>> noteList;
+    private NoteRepository noteRepository;
 
-    private NoteDatabase noteDatabase;
-
-    public MainListViewModel(Application application, LocalDate date) {
+    public MainListViewModel(Application application) {
         super(application);
-        noteDatabase = NoteDatabase.getDatabase(this.getApplication());
-        noteList = noteDatabase.getNoteDao().findByDay(date);
+        noteRepository = NoteRepository.getInstance(application);
     }
 
-    public LiveData<List<Note>> getMainNoteList() {
-        return noteList;
+    public LiveData<List<Note>> notesByDay(LocalDate date) {
+        return noteRepository.getNotesByDay(date);
     }
 
-
+    public void insert
 
 }
