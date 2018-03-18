@@ -13,7 +13,7 @@ import lombok.Data;
 /**
  * The data class for the note instance
  */
-@Entity
+@Entity(tableName = "notes")
 @Data
 public class Note implements Serializable {
 

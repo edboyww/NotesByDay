@@ -3,7 +3,9 @@ package com.adamvincze.notesbyday.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.adamvincze.notesbyday.model.Note;
 import com.adamvincze.notesbyday.model.NoteRepository;
@@ -15,27 +17,36 @@ import java.util.List;
 /**
  * ViewModel class for the main Activity
  */
-public class MainListViewModel extends AndroidViewModel {
+public class MainActivityViewModel extends AndroidViewModel {
 
     private NoteRepository noteRepository;
     private LocalDate selectedDate;
-    private LiveData<List<Note>> notesByDate;
+    private MutableLiveData<List<Note>> notesDataByDate;
 
 
-    public MainListViewModel(@NonNull Application application) {
+    public MainActivityViewModel(@NonNull Application application) {
         super(application);
         noteRepository = NoteRepository.getInstance(application);
-        this.setDate(new LocalDate());
     }
 
     public void setDate(LocalDate toDate) {
         this.selectedDate = toDate;
-        notesByDate = noteRepository.getNotesByDate(toDate);
+        //notesDataByDate = new MutableLiveData<>();
+        notesDataByDate = noteRepository.getNotesByDate(toDate);
+        //debugging
+            try {
+                Log.d("Note list:", notesDataByDate.getValue().toString());
+            }
+            catch (NullPointerException npe) {
+                Log.d("Note list", "NULL");
+            }
     }
 
     public LocalDate getSelectedDate() { return selectedDate; }
 
-    public LiveData<List<Note>> getNotesByDate() { return notesByDate; }
+    public MutableLiveData<List<Note>> refreshNotesDataByDate() {
+        return notesDataByDate;
+    }
 
     public void putNote(Note note) {
         noteRepository.insertNote(note);

@@ -26,14 +26,14 @@
 
     <!--The note selector-->
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/date_bar"
+        android:id="@+id/main_date_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
         android:elevation="4dp"
         android:paddingBottom="@dimen/small_gap"
         android:paddingTop="@dimen/small_gap"
-        app:layout_constraintBottom_toBottomOf="@+id/new_note_fab"
+        app:layout_constraintBottom_toBottomOf="@+id/main_new_note_fab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
 
         <!--Previous day button-->
         <ImageButton
-            android:id="@+id/previous_day_button"
+            android:id="@+id/main_previous_day_button"
             style="?android:borderlessButtonStyle"
             android:layout_width="@dimen/large_touch_size"
             android:layout_height="@dimen/small_touch_size"
@@ -67,8 +67,8 @@
             android:background="@drawable/shape_chip_simple_drawable_light"
             android:textColor="@color/colorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/next_day_button"
-            app:layout_constraintStart_toEndOf="@+id/previous_day_button"
+            app:layout_constraintEnd_toStartOf="@+id/main_next_day_button"
+            app:layout_constraintStart_toEndOf="@+id/main_previous_day_button"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlHardcoded"
             tools:text="1983 February 8., Saturday"
@@ -76,7 +76,7 @@
 
         <!--Next day button-->
         <ImageButton
-            android:id="@+id/next_day_button"
+            android:id="@+id/main_next_day_button"
             style="?android:borderlessButtonStyle"
             android:layout_width="@dimen/large_touch_size"
             android:layout_height="@dimen/small_touch_size"
@@ -101,13 +101,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date_bar"
+        app:layout_constraintTop_toBottomOf="@id/main_date_bar"
         tools:listitem="@layout/note_item"
         />
 
     <!--The FAB-->
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/new_note_fab"
+        android:id="@+id/main_new_note_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"

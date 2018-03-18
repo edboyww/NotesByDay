@@ -1,7 +1,7 @@
 package com.adamvincze.notesbyday.model;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 
 import org.joda.time.LocalDate;
@@ -16,6 +16,7 @@ public class NoteRepository {
 
     private static NoteRepository INSTANCE = null;
     private NoteDao noteDao;
+    MutableLiveData<List<Note>> dailyNotes = null;
 
     private NoteRepository(Application application) {
         NoteDatabase db = NoteDatabase.getDatabase(application);
@@ -73,33 +74,39 @@ public class NoteRepository {
     }
 
     /**
-     * Get daily notes. Not async.
+     * Get daily notes async task. What TODO with the result?...
      */
-    public LiveData<List<Note>> getNotesByDate(LocalDate date) {
-        return noteDao.findByDay(date);
+    public MutableLiveData<List<Note>> getNotesByDate(LocalDate date) {
+        new GetByDateAsyncTask(noteDao).execute(date);
+        return dailyNotes;
     }
+    private static class GetByDateAsyncTask extends AsyncTask<LocalDate, Void, List<Note>> {
 
-    /**
-     * Gat a single note from the DB. Not sync.
-     */
-    public LiveData<Note> getNote(int id) {
-        return noteDao.findById(id);
+        private NoteDao asyncTaskDao;
+
+        GetByDateAsyncTask(NoteDao dao) { this.asyncTaskDao = dao; }
+
+        @Override
+        protected List<Note> doInBackground(final LocalDate... dates) {
+            return asyncTaskDao.findByDay(dates[0]);
+        }
+
+        @Override
+        protected void onPostExecute(List<Note> notes) {
+            super.onPostExecute(notes);
+            INSTANCE.dailyNotes.postValue(notes);
+        }
     }
 
 //    /**
-//     * Task for getting a day's note list from the DB
+//     * Get a single note from the DB. Not sync.
 //     */
-//    public void fillDaysCache(LocalDate date) { new DailyNoteAsyncTask(noteDao).execute(date); }
-//    private static class DailyNoteAsyncTask extends AsyncTask<LocalDate, Void, LiveData<List<Note>>> {
-//
-//        private NoteDao asyncTaskDao;
-//
-//        DailyNoteAsyncTask(NoteDao dao) { this.asyncTaskDao = dao; }
-//
-//        @Override
-//        protected LiveData<List<Note>> doInBackground(final LocalDate... localDates) {
-//            return asyncTaskDao.findByDay(localDates[0]);
-//        }
+//    public MutableLiveData<Note> getNote(int id) {
+//        MutableLiveData<Note> data = new MutableLiveData<>();
+//        data.setValue(noteDao.findById(id));
+//        return data;
 //    }
+
+
 
 }
