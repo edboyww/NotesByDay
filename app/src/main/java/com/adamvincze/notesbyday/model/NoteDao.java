@@ -1,5 +1,6 @@
 package com.adamvincze.notesbyday.model;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -17,13 +18,13 @@ import java.util.List;
 public interface NoteDao {
 
     @Query("SELECT * FROM notes WHERE id=:id")
-    Note findById(int id);
+    LiveData<Note> findById(int id);
 
     @Query("SELECT * FROM notes WHERE date=:date")
-    List<Note> findByDay(LocalDate date);
+    LiveData<List<Note>> selectByDay(LocalDate date);
 
     @Query("SELECT * FROM notes")
-    List<Note> findAll();
+    LiveData<List<Note>> selectAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(Note note);

@@ -4,11 +4,13 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Transformations;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.adamvincze.notesbyday.model.Note;
-import com.adamvincze.notesbyday.model.NoteRepository;
+import com.adamvincze.notesbyday.model.NoteDao;
+import com.adamvincze.notesbyday.model.NoteDatabase;
 
 import org.joda.time.LocalDate;
 
@@ -19,41 +21,72 @@ import java.util.List;
  */
 public class MainActivityViewModel extends AndroidViewModel {
 
-    private NoteRepository noteRepository;
-    private LocalDate selectedDate;
-    private MutableLiveData<List<Note>> notesDataByDate;
+    private NoteDatabase noteDatabase;
+    private NoteDao noteDao;
+    private MutableLiveData<LocalDate> selectedDate = new MutableLiveData<>();
+    public final LiveData<List<Note>> notesData =
+            Transformations.switchMap(selectedDate, (date) -> noteDao.selectByDay(date));
 
-
-    public MainActivityViewModel(@NonNull Application application) {
+        public MainActivityViewModel(@NonNull Application application) {
         super(application);
-        noteRepository = NoteRepository.getInstance(application);
+        noteDatabase = NoteDatabase.getDatabase(this.getApplication());
+        noteDao = noteDatabase.getNoteDao();
     }
 
+    /**
+     * Changes the date on the UI
+     * @param toDate: to set the LocalDate the notes of which we want to list
+     */
     public void setDate(LocalDate toDate) {
-        this.selectedDate = toDate;
-        //notesDataByDate = new MutableLiveData<>();
-        notesDataByDate = noteRepository.getNotesByDate(toDate);
-        //debugging
-            try {
-                Log.d("Note list:", notesDataByDate.getValue().toString());
-            }
-            catch (NullPointerException npe) {
-                Log.d("Note list", "NULL");
-            }
+        selectedDate.setValue(toDate);
     }
 
-    public LocalDate getSelectedDate() { return selectedDate; }
+    /**
+     * To get the selected date on the UI thread
+     * @return the currently stored selected LocalDate
+     */
+    public LocalDate getSelectedDate() { return selectedDate.getValue(); }
 
-    public MutableLiveData<List<Note>> refreshNotesDataByDate() {
-        return notesDataByDate;
+    /**
+     * Insert note async task
+     * @param note: the Note object which is inserted
+     */
+    public void insertNote(Note note) {
+        new InsertAsyncTask(noteDatabase).execute(note);
+    }
+    private static class InsertAsyncTask extends AsyncTask<Note, Void, Void> {
+
+        private NoteDatabase db;
+        InsertAsyncTask(NoteDatabase ndb) {
+            db = ndb;
+        }
+
+        @Override
+        protected Void doInBackground(Note... notes) {
+            db.getNoteDao().insert(notes[0]);
+            return null;
+        }
     }
 
-    public void putNote(Note note) {
-        noteRepository.insertNote(note);
-    }
-
+    /**
+     * Delete note async task
+     * @param note: the Note object which is deleted
+     */
     public void deleteNote(Note note) {
-        noteRepository.deleteNote(note);
+        new DeleteAsyncTask(noteDatabase).execute(note);
+    }
+    private static class DeleteAsyncTask extends AsyncTask<Note, Void, Void> {
+
+        private NoteDatabase db;
+        DeleteAsyncTask(NoteDatabase ndb) {
+            db = ndb;
+        }
+
+        @Override
+        protected Void doInBackground(Note... notes) {
+            db.getNoteDao().delete(notes[0]);
+            return null;
+        }
     }
 
 }

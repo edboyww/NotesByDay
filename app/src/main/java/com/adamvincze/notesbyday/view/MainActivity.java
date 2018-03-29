@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_list_view) RecyclerView mainListView;
 
     private MainActivityViewModel viewModel;
-    private List<Note> noteListByDate;
     private NoteListAdapter adapter;
 
     @Override
@@ -67,15 +66,12 @@ public class MainActivity extends AppCompatActivity {
         //initially show the current date at the open of the app
         currentDateView.setText(formatDate(viewModel.getSelectedDate()));
 
-        adapter = new NoteListAdapter();
+        adapter = new NoteListAdapter(viewModel.notesData.getValue());
         mainListView.setAdapter(adapter);
         mainListView.setLayoutManager(new LinearLayoutManager(this));
-        viewModel.refreshNotesDataByDate().observe(this, new Observer<List<Note>>() {
-            @Override
-            public void onChanged(List<Note> notes) {
-                // Update the cached copy of the words in the adapter.
-                adapter.setNoteData(notes);
-            }
+        viewModel.notesData.observe(this, notes -> {
+            // Update the cached copy of the words in the adapter.
+            adapter.updateList(notes);
         });
 
     }
@@ -85,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     public void previousDay() {
         viewModel.setDate(viewModel.getSelectedDate().minusDays(1));
         currentDateView.setText(formatDate(viewModel.getSelectedDate()));
+        mainListView.invalidate();
     }
 
     //listener of the next day button on the note card
@@ -92,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
     public void nextDay() {
         viewModel.setDate(viewModel.getSelectedDate().plusDays(1));
         currentDateView.setText(formatDate(viewModel.getSelectedDate()));
+        mainListView.invalidate();
     }
 
     //listener of the New note FAB, passing the current date
@@ -114,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                         Note newNote = (Note) fromNewNote.getSerializableExtra("note");
                         viewModel.setDate(newNote.getDate());
                         currentDateView.setText(formatDate(viewModel.getSelectedDate()));
-                        viewModel.putNote(newNote);
+                        viewModel.insertNote(newNote);
                         Log.v("Note from intent", newNote.toString());
                         break;
                     case NbdApplication.EMPTY_NOTE:
@@ -137,7 +135,13 @@ public class MainActivity extends AppCompatActivity {
     /**
      * RecyclerView Adapter for the noteData list
      */
-    public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHolder> {
+    class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHolder> {
+
+        private List<Note> noteList;
+
+        NoteListAdapter(List<Note> list) {
+            this.noteList = list;
+        }
 
         // Provide a direct reference to each of the views within a data item
         // Used to cache the views within the item layout for fast access
@@ -162,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull NoteListAdapter.ViewHolder viewHolder, int position) {
             // Get the data model based on position
-            @SuppressWarnings("ConstantConditions") Note note = noteListByDate.get(position);
+           Note note = noteList.get(position);
 
             // Set item views based on your views and data model
             TextView textView = viewHolder.noteTextView;
@@ -172,14 +176,12 @@ public class MainActivity extends AppCompatActivity {
         // Returns the total count of items in the list
         @Override
         public int getItemCount() {
-            try { //noinspection ConstantConditions
-                return noteListByDate.size(); }
+            try { return noteList.size(); }
             catch (NullPointerException npe) { return 0; }
         }
 
-        //TODO: separate notify...() events
-        void setNoteData(List<Note> newNoteList) {
-            noteListByDate = newNoteList;
+        void updateList(List<Note> newList) {
+            this.noteList = newList;
             notifyDataSetChanged();
         }
 
