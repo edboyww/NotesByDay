@@ -12,4 +12,7 @@
     <string name="yesterday">Tegnap</string>
     <string name="day_before_yesterday">Tegnapelőtt</string>
     <string name="note_saved">A jegyzet elmentve</string>
+    <string name="note_alert">Biztos, hogy törölni akarod a jegyzetet?</string>
+    <string name="note_alert_yes">IGEN</string>
+    <string name="note_alert_no">NEM</string>
 </resources>

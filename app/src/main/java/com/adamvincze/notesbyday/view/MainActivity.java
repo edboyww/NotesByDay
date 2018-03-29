@@ -93,13 +93,16 @@ public class MainActivity extends AppCompatActivity {
                         //TODO: outsource these to string resources
                         AlertDialog.Builder alert =
                                 new AlertDialog.Builder(MainActivity.this).
-                                    setMessage("Biztos, hogy törölni akarod a jegyzetet?").
+                                    setMessage(R.string.note_alert).
                                     setPositiveButton(
-                                            "IGEN",
-                                            (dialog, which) -> dialog.dismiss()
+                                            R.string.note_alert_yes,
+                                            (dialog, which) -> {
+                                                viewModel.deleteNote(adapter.getItem(position));
+                                                dialog.dismiss();
+                                            }
                                     ).
                                     setNegativeButton(
-                                            "NEM",
+                                            R.string.note_alert_no,
                                             (dialog, which) -> dialog.dismiss()
                                     );
                         alert.create().show();

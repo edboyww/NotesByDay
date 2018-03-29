@@ -11,4 +11,7 @@
     <string name="yesterday">Yesterday</string>
     <string name="day_before_yesterday">Day before yesterday</string>
     <string name="note_saved">Note saved</string>
+    <string name="note_alert">Do you want to delete the note?</string>
+    <string name="note_alert_yes">YES</string>
+    <string name="note_alert_no">NO</string>
 </resources>

@@ -61,16 +61,27 @@ class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHolder> {
         viewHolder.itemView.setLongClickable(true);
     }
 
-    // Returns the total count of items in the list
+    /**
+     * Returns the total count of items in the list
+     * @return the number of the items in the view
+     */
     @Override
     public int getItemCount() {
         try { return noteList.size(); }
         catch (NullPointerException npe) { return 0; }
     }
 
+    /**
+     * Update the Note List in the adapter
+     * @param newList: the new Note List object
+     */
     void updateList(List<Note> newList) {
         this.noteList = newList;
         notifyDataSetChanged();
+    }
+
+    Note getItem(int position) {
+        return noteList.get(position);
     }
 
 }
