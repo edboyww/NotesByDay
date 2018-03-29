@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/activity_main_layout"
     tools:context="com.adamvincze.notesbyday.view.MainActivity"
     >
 
     <!--The toolbar-->
     <android.support.v7.widget.Toolbar
         android:id="@+id/main_toolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimaryDark"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:ignore="UnusedAttribute"
         />
@@ -27,18 +24,12 @@
     <!--The note selector-->
     <android.support.constraint.ConstraintLayout
         android:id="@+id/main_date_bar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
         android:elevation="4dp"
         android:paddingBottom="@dimen/small_gap"
         android:paddingTop="@dimen/small_gap"
-        app:layout_constraintBottom_toBottomOf="@+id/main_new_note_fab"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_toolbar"
-        app:layout_constraintVertical_bias="0.0"
         tools:targetApi="lollipop"
         >
 
@@ -53,13 +44,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="RtlHardcoded"
             />
 
         <!--Date-->
         <TextView
             android:id="@+id/main_date_textview"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -70,7 +59,6 @@
             app:layout_constraintEnd_toStartOf="@+id/main_next_day_button"
             app:layout_constraintStart_toEndOf="@+id/main_previous_day_button"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="RtlHardcoded"
             tools:text="1983 February 8., Saturday"
             />
 
@@ -85,7 +73,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="RtlHardcoded"
             />
 
     </android.support.constraint.ConstraintLayout>
@@ -93,17 +80,14 @@
     <!--The list of the notes-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/main_list_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_date_bar"
         tools:listitem="@layout/note_item"
         />
+
 
     <!--The FAB-->
     <android.support.design.widget.FloatingActionButton
@@ -115,11 +99,10 @@
         android:src="@drawable/ic_add_contrast_24dp"
         app:elevation="6dp"
         app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="@color/colorAccentDark"
         app:useCompatPadding="true"
-        tools:ignore="RtlHardcoded"
+        app:layout_anchor="@id/main_list_view"
+        app:layout_anchorGravity="bottom|right|end"
         />
 
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

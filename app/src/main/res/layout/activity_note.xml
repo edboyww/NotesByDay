@@ -1,26 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?><!--Layout for the note taking part of the application-->
-
-<android.support.constraint.ConstraintLayout
+<?xml version="1.0" encoding="utf-8"?>
+<!--Layout for the note taking part of the application-->
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_note_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context="com.adamvincze.notesbyday.view.NoteActivity"
     >
 
     <!--The toolbar-->
     <android.support.v7.widget.Toolbar
         android:id="@+id/note_toolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintBottom_toTopOf="@+id/note_chip_lane"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:ignore="UnusedAttribute"
         />
@@ -30,17 +27,13 @@
     -->
     <LinearLayout
         android:id="@+id/note_chip_lane"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorPrimary"
         android:elevation="4dp"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/large_gap"
         android:paddingTop="@dimen/small_gap"
-        app:layout_constraintBottom_toTopOf="@+id/note_text_input_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/note_toolbar"
         tools:ignore="UnusedAttribute"
         >
 
@@ -61,16 +54,12 @@
     <!--A full screen text input (it only seems so, the divider is invisible)-->
     <android.support.design.widget.TextInputLayout
         android:id="@+id/note_text_input_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingEnd="@dimen/large_gap"
         android:paddingLeft="@dimen/large_gap"
         android:paddingRight="@dimen/large_gap"
         android:paddingStart="@dimen/large_gap"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/note_chip_lane"
         >
 
         <android.support.design.widget.TextInputEditText
@@ -89,5 +78,4 @@
 
     </android.support.design.widget.TextInputLayout>
 
-
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>
