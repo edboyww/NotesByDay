@@ -3,7 +3,7 @@ A small note taking app for Android for the use case of handling notes related t
 
 **CHANGELOG:**
 * Base functionality:
-** Listing the daily notes
-** Changing the selected day by pagination
-** Adding a new note
-** Deleting a note on long press
+  * Listing the daily notes
+  * Changing the selected day by pagination
+  * Adding a new note
+  * Deleting a note on long press
