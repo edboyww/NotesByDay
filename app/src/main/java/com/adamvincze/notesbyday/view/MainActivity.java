@@ -1,22 +1,21 @@
 package com.adamvincze.notesbyday.view;
 
-import android.arch.lifecycle.Observer;
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.adamvincze.notesbyday.NbdApplication;
 import com.adamvincze.notesbyday.R;
@@ -26,8 +25,6 @@ import com.adamvincze.notesbyday.viewmodel.MainActivityViewModel;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -35,7 +32,7 @@ import butterknife.OnClick;
 import static com.adamvincze.notesbyday.Helpers.formatDate;
 
 /**
- * The main activity - view
+ * The Main Activity - Note list
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -59,40 +56,80 @@ public class MainActivity extends AppCompatActivity {
         //putting the toolbar on top in the support library
         setSupportActionBar(mainToolbar);
 
+        //getting the VM and populating it with the initial date
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
-
         viewModel.setDate(new LocalDate());
 
         //initially show the current date at the open of the app
         currentDateView.setText(formatDate(viewModel.getSelectedDate()));
 
+        //setting the adapter and layout for the main note list
         adapter = new NoteListAdapter(viewModel.notesData.getValue());
         mainListView.setAdapter(adapter);
         mainListView.setLayoutManager(new LinearLayoutManager(this));
-        viewModel.notesData.observe(this, notes -> {
-            // Update the cached copy of the words in the adapter.
-            adapter.updateList(notes);
-        });
 
+        //setting the observer for the LiveData containing the list
+        viewModel.notesData.observe(
+            this,
+            // Update the cached copy of the words in the adapter.
+            notes -> adapter.updateList(notes)
+        );
+
+        //setting the click listeners for the note items
+        mainListView.addOnItemTouchListener(new NoteTouchListener(
+                this,
+                mainListView,
+                new NoteClickListener() {
+
+                    @Override
+                    public void onClick(View view, int position) {
+                        //TODO: create the intent to pass to the Note activity to edit a note
+                        Toast.makeText(MainActivity.this, "Single Click on position:"+position,
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onLongClick(View view, int position) {
+                        //TODO: outsource these to string resources
+                        AlertDialog.Builder alert =
+                                new AlertDialog.Builder(MainActivity.this).
+                                    setMessage("Biztos, hogy törölni akarod a jegyzetet?").
+                                    setPositiveButton(
+                                            "IGEN",
+                                            (dialog, which) -> dialog.dismiss()
+                                    ).
+                                    setNegativeButton(
+                                            "NEM",
+                                            (dialog, which) -> dialog.dismiss()
+                                    );
+                        alert.create().show();
+                    }
+                }
+
+        ));
     }
 
-    //listener of the previous day button on the note card
+    /**
+     * listener of the previous day button on the note card
+     */
     @OnClick(R.id.main_previous_day_button)
     public void previousDay() {
         viewModel.setDate(viewModel.getSelectedDate().minusDays(1));
         currentDateView.setText(formatDate(viewModel.getSelectedDate()));
-        mainListView.invalidate();
     }
 
-    //listener of the next day button on the note card
+    /**
+     * listener of the next day button on the note card
+     */
     @OnClick(R.id.main_next_day_button)
     public void nextDay() {
         viewModel.setDate(viewModel.getSelectedDate().plusDays(1));
         currentDateView.setText(formatDate(viewModel.getSelectedDate()));
-        mainListView.invalidate();
     }
 
-    //listener of the New note FAB, passing the current date
+    /**
+     * listener of the New note FAB, passing the current date
+     */
     @OnClick(R.id.main_new_note_fab)
     public void newNote() {
         Intent newNoteIntent = new Intent(MainActivity.this, NoteActivity.class);
@@ -103,13 +140,19 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(newNoteIntent, NbdApplication.NEW_NOTE);
     }
 
+    /**
+     * Getting back the Note object from NoteActivity
+     * @param requestCode: the requestcode with wich the Note intent is sent
+     * @param resultCode: the result code
+     * @param fromNoteActivity: the Intent from NoteActivity with the added or edited Note as an extra
+     */
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent fromNewNote) {
+    public void onActivityResult(int requestCode, int resultCode, Intent fromNoteActivity) {
         switch (requestCode) {
             case NbdApplication.NEW_NOTE:
                 switch (resultCode) {
                     case RESULT_OK:
-                        Note newNote = (Note) fromNewNote.getSerializableExtra("note");
+                        Note newNote = (Note) fromNoteActivity.getSerializableExtra("note");
                         viewModel.setDate(newNote.getDate());
                         currentDateView.setText(formatDate(viewModel.getSelectedDate()));
                         viewModel.insertNote(newNote);
@@ -127,64 +170,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             default:
-                super.onActivityResult(requestCode, resultCode, fromNewNote);
+                super.onActivityResult(requestCode, resultCode, fromNoteActivity);
                 break;
         }
-    }
-
-    /**
-     * RecyclerView Adapter for the noteData list
-     */
-    class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHolder> {
-
-        private List<Note> noteList;
-
-        NoteListAdapter(List<Note> list) {
-            this.noteList = list;
-        }
-
-        // Provide a direct reference to each of the views within a data item
-        // Used to cache the views within the item layout for fast access
-        class ViewHolder extends RecyclerView.ViewHolder {
-            @BindView(R.id.note_text) TextView noteTextView;
-            ViewHolder(View itemView) {
-                super(itemView);
-                ButterKnife.bind(this, itemView);
-            }
-        }
-
-        // Usually involves inflating a layout from XML and returning the holder
-        @Override @NonNull
-        public NoteListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            Context context = parent.getContext();
-            LayoutInflater inflater = LayoutInflater.from(context);
-            View contactView = inflater.inflate(R.layout.note_item, parent, false);
-            return new NoteListAdapter.ViewHolder(contactView);
-        }
-
-        // Involves populating data into the item through holder
-        @Override
-        public void onBindViewHolder(@NonNull NoteListAdapter.ViewHolder viewHolder, int position) {
-            // Get the data model based on position
-           Note note = noteList.get(position);
-
-            // Set item views based on your views and data model
-            TextView textView = viewHolder.noteTextView;
-            textView.setText(note.getText());
-        }
-
-        // Returns the total count of items in the list
-        @Override
-        public int getItemCount() {
-            try { return noteList.size(); }
-            catch (NullPointerException npe) { return 0; }
-        }
-
-        void updateList(List<Note> newList) {
-            this.noteList = newList;
-            notifyDataSetChanged();
-        }
-
     }
 
 }

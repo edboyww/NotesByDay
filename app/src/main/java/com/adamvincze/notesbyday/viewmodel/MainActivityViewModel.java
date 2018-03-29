@@ -25,7 +25,10 @@ public class MainActivityViewModel extends AndroidViewModel {
     private NoteDao noteDao;
     private MutableLiveData<LocalDate> selectedDate = new MutableLiveData<>();
     public final LiveData<List<Note>> notesData =
-            Transformations.switchMap(selectedDate, (date) -> noteDao.selectByDay(date));
+            Transformations.switchMap(
+                    selectedDate,
+                    date -> noteDao.selectByDay(date)
+            );
 
         public MainActivityViewModel(@NonNull Application application) {
         super(application);
