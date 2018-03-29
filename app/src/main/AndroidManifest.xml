@@ -5,15 +5,16 @@
     package="com.adamvincze.notesbyday"
     >
 
-    <!--TODO: deal with Google app indexing, backup and launcher icon-->
     <application
         android:name="com.adamvincze.notesbyday.NbdApplication"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
         >
 
         <activity

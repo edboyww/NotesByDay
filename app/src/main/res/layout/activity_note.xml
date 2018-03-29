@@ -26,7 +26,8 @@
         />
 
     <!--The chips with the date
-        TODO: and the category tag -->
+        TODO: and the category tag
+    -->
     <LinearLayout
         android:id="@+id/note_chip_lane"
         android:layout_width="0dp"

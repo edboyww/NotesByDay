@@ -72,7 +72,11 @@ public class NoteActivity extends AppCompatActivity {
 
     }
 
-    //Listening to the toolbar actions
+    /**
+     * Listening to MenuItem clicks
+     * @param item: the MenuItem clicked
+     * @return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -89,7 +93,7 @@ public class NoteActivity extends AppCompatActivity {
                     setResult(NbdApplication.EMPTY_NOTE, backButton);
                 } else {
                     note.setText(noteText);
-                    //TODO only change setEdited if the text changed in teh process
+                    //TODO only change setEdited if the text changed in the process
                     note.setEdited(new LocalDateTime());
                     backButton.putExtra("note", note);
                     setResult(RESULT_OK, backButton);

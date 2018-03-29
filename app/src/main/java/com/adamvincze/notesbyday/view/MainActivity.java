@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onLongClick(View view, int position) {
-                        //TODO: outsource these to string resources
                         AlertDialog.Builder alert =
                                 new AlertDialog.Builder(MainActivity.this).
                                     setMessage(R.string.note_alert).
@@ -151,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent fromNoteActivity) {
+        //TODO handle edit results properly
         switch (requestCode) {
             case NbdApplication.NEW_NOTE:
                 switch (resultCode) {
