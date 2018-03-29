@@ -64,7 +64,7 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterVer"
 
     //Lorem ipsum generator
-    implementation 'com.thedeanda:lorem:2.1'
+    //implementation 'com.thedeanda:lorem:2.1'
 
     //Joda Time for date management
     implementation 'joda-time:joda-time:2.9.9'
