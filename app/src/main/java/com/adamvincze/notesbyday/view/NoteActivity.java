@@ -50,13 +50,13 @@ public class NoteActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             noteViewModel.setNote((Note) extras.getSerializable("note"));
-            if (extras.getBoolean("isNewNote")) noteViewModel.theNoteIsNew();
+            if (extras.getBoolean("isNewNote")) noteViewModel.setNew();
         } else {
             Note newNote = new Note();
             newNote.setDate(new LocalDate());
             newNote.setAdded(new LocalDateTime());
             noteViewModel.setNote(newNote);
-            noteViewModel.theNoteIsNew();
+            noteViewModel.setNew();
         }
 
         //The Toolbar
