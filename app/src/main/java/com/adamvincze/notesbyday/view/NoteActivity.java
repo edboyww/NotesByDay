@@ -9,6 +9,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -27,7 +28,6 @@ import butterknife.ButterKnife;
 /**
  * The note editor activity - view
  */
-//TODO create a viewmodel for this
 public class NoteActivity extends AppCompatActivity {
 
     NoteActivityViewModel noteViewModel;
@@ -85,25 +85,24 @@ public class NoteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         String noteText = noteEditor.getText().toString();
-        //TODO: clean up this mess
         switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
 
+            // Respond to the action bar's Up/Home button
             case android.R.id.home: {
                 Intent backButton = NavUtils.getParentActivityIntent(this);
                 assert backButton != null;
-                //TODO: clear this branch when fancy Telegram effect is ready (?)
 
-                //
+                //Putting together the back intent
                 if (noteText.trim().equals("")) {
                     if (!noteViewModel.isNew()) {
                         backButton.putExtra("id", noteViewModel.getNote().getId());
                     }
                     setResult(NbdApplication.EMPTY_NOTE_RESULT, backButton);
                 } else {
-                    noteViewModel.getNote().setText(noteText);
-                    //TODO only change setEdited if the text changed in the process
-                    if (!noteViewModel.isNew()) {
+                    noteViewModel.getNote().setText(noteText.trim());
+                    Log.d("Note isNew", Boolean.toString(noteViewModel.isNew()));
+                    Log.d("Note isEdited", Boolean.toString(noteViewModel.isEdited()));
+                    if (!noteViewModel.isNew() && noteViewModel.isEdited()) {
                         noteViewModel.getNote().setEdited(new LocalDateTime());
                     }
                     backButton.putExtra("note", noteViewModel.getNote());
@@ -111,18 +110,19 @@ public class NoteActivity extends AppCompatActivity {
                     //Toast.makeText(getApplicationContext(), R.string.note_saved, Toast.LENGTH_SHORT).show();
                 }
 
+                // If this activity is NOT part of this app's task, create a new task
+                // when navigating up, with a synthesized back stack.
                 if (NavUtils.shouldUpRecreateTask(this, backButton)) {
-                    // This activity is NOT part of this app's task, so create a new task
-                    // when navigating up, with a synthesized back stack.
-                    //TODO: prepare properly for notes from other apps, right now the note is not sent back, and the app is not prepared fro sharing to new note
+                    //TODO: it is not working right now
                     TaskStackBuilder.create(this)
                             // Add all of this activity's parents to the back stack
                             .addNextIntentWithParentStack(backButton)
                             // Navigate up to the closest parent
                             .startActivities();
-                } else {
-                    // This activity is part of this app's task, so simply
-                    // navigate up to the logical parent activity.
+                }
+                // Else if this activity is part of this app's task, so simply
+                // navigate up to the logical parent activity.
+                else {
                     NavUtils.navigateUpTo(this, backButton);
                 }
                 return true;

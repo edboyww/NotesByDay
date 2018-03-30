@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                                             (dialog, which) -> {
                                                 viewModel.deleteNoteById(adapter.getItem(position).getId());
                                                 dialog.dismiss();
+                                                //TODO: Implement the undo snackbar
                                             }
                                     ).
                                     setNegativeButton(
@@ -143,14 +144,13 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Getting back the Note object from NoteActivity
-     * @param requestCode: the requestcode with wich the Note intent is sent
+     * @param requestCode: the request code with which the Note intent is sent
      * @param resultCode: the result code
      * @param fromNoteActivity: the Intent from NoteActivity with the added or edited Note as an extra
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent fromNoteActivity) {
 
-        //TODO handle edit results properly
         switch (requestCode) {
 
             case NEW_NOTE_INTENT:

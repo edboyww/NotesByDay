@@ -9,7 +9,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 27
         versionCode 1
-        versionName "0.0.9.1"
+        versionName "0.0.9.2"
 //        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -63,9 +63,6 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterVer"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterVer"
 
-    //Lorem ipsum generator
-    //implementation 'com.thedeanda:lorem:2.1'
-
     //Joda Time for date management
     implementation 'joda-time:joda-time:2.9.9'
 
@@ -73,4 +70,5 @@ dependencies {
     //    testImplementation 'junit:junit:4.12'
     //    androidTestImplementation 'com.android.support.test:runner:1.0.1'
     //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
 }

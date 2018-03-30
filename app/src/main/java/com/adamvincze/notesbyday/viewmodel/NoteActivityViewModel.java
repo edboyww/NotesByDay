@@ -16,6 +16,8 @@ public class NoteActivityViewModel extends AndroidViewModel {
     private LocalDate selectedDate;
     private Note note;
     private boolean isNew = false;
+    private String baseText;
+    private LocalDate baseDate;
 
     public NoteActivityViewModel(@NonNull Application application) {
         super(application);
@@ -28,9 +30,11 @@ public class NoteActivityViewModel extends AndroidViewModel {
 
     public LocalDate getSelectedDate() { return selectedDate; }
 
-    public void setNote(Note newNote) {
-        note = newNote;
+    public void setNote(Note note) {
+        this.note = note;
         selectedDate = note.getDate();
+        baseText = note.getText();
+        baseDate = note.getDate();
     }
 
     public Note getNote() { return note; }
@@ -38,5 +42,9 @@ public class NoteActivityViewModel extends AndroidViewModel {
     public void setNew() { isNew = true; }
 
     public boolean isNew() { return isNew; }
+
+    public boolean isEdited() {
+        return (!(note.getText().equals(baseText) && note.getDate().equals(baseDate)));
+    }
 
 }
