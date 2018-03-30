@@ -88,9 +88,9 @@ public class NoteActivity extends AppCompatActivity {
                 Intent backButton = NavUtils.getParentActivityIntent(this);
                 assert backButton != null;
                 //TODO: clear this branch when fancy Telegram effect is ready (?)
-                //What if the user deletes the full note text and pushes the back button. Then it is not a cancel...
+                //TODO: What if the user deletes the full note text and pushes the back button. Then it is not a cancel...
                 if (noteText.equals("")) {
-                    setResult(NbdApplication.EMPTY_NOTE, backButton);
+                    setResult(NbdApplication.EMPTY_NOTE_RESULT, backButton);
                 } else {
                     note.setText(noteText);
                     //TODO only change setEdited if the text changed in the process

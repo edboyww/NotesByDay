@@ -1,8 +1,6 @@
 package com.adamvincze.notesbyday.view;
 
-import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,9 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.adamvincze.notesbyday.NbdApplication;
 import com.adamvincze.notesbyday.R;
 import com.adamvincze.notesbyday.model.Note;
 import com.adamvincze.notesbyday.viewmodel.MainActivityViewModel;
@@ -30,6 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.adamvincze.notesbyday.Helpers.formatDate;
+import static com.adamvincze.notesbyday.NbdApplication.*;
 
 /**
  * The Main Activity - Note list
@@ -83,9 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick(View view, int position) {
-                        //TODO: create the intent to pass to the Note activity to edit a note
-                        Toast.makeText(MainActivity.this, "Single Click on position:"+position,
-                                Toast.LENGTH_SHORT).show();
+                        Intent editNoteIntent = new Intent(MainActivity.this, NoteActivity.class);
+                        editNoteIntent.putExtra("note", adapter.getItem(position));
+                        startActivityForResult(editNoteIntent, NEW_NOTE_INTENT);
                     }
 
                     @Override
@@ -139,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         newNote.setDate(viewModel.getSelectedDate());
         newNote.setAdded(new LocalDateTime());
         newNoteIntent.putExtra("note", newNote);
-        startActivityForResult(newNoteIntent, NbdApplication.NEW_NOTE);
+        startActivityForResult(newNoteIntent, NEW_NOTE_INTENT);
     }
 
     /**
@@ -150,28 +147,53 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent fromNoteActivity) {
+
         //TODO handle edit results properly
         switch (requestCode) {
-            case NbdApplication.NEW_NOTE:
+
+            case NEW_NOTE_INTENT:
                 switch (resultCode) {
                     case RESULT_OK:
                         Note newNote = (Note) fromNoteActivity.getSerializableExtra("note");
                         viewModel.setDate(newNote.getDate());
                         currentDateView.setText(formatDate(viewModel.getSelectedDate()));
                         viewModel.insertNote(newNote);
-                        Log.v("Note from intent", newNote.toString());
+                        Log.v("New note from intent", newNote.toString());
                         break;
-                    case NbdApplication.EMPTY_NOTE:
-                        Log.v("Note from intent", "Doesn't exist");
+                    case EMPTY_NOTE_RESULT:
+                        Log.v("New note from intent", "Doesn't exist");
                         break;
                     case RESULT_CANCELED:
-                        Log.v("Note from intent", "RESULT_CANCELED");
+                        Log.v("New note from intent", "RESULT_CANCELED");
                         break;
                     default:
-                        Log.v("Note from intent", "Unexpected result");
+                        Log.v("New note from intent", "Unexpected result");
                         break;
                 }
                 break;
+
+            case EDIT_NOTE_INTENT:
+                switch (resultCode) {
+                    case RESULT_OK:
+                        Note editedNote = (Note) fromNoteActivity.getSerializableExtra("note");
+                        viewModel.setDate(editedNote.getDate());
+                        currentDateView.setText(formatDate(viewModel.getSelectedDate()));
+                        viewModel.insertNote(editedNote);
+                        Log.v("Note edit from intent", editedNote.toString());
+                        break;
+                    case EMPTY_NOTE_RESULT:
+                        Note noteToDelete = (Note) fromNoteActivity.getSerializableExtra("note");
+                        viewModel.deleteNote(noteToDelete);
+                        Log.v("Note edit from intent", (Integer.valueOf(noteToDelete.getId()).toString() + " deleted"));
+                        break;
+                    case RESULT_CANCELED:
+                        Log.v("Note edit from intent", "RESULT_CANCELED");
+                        break;
+                    default:
+                        Log.v("Note edit from intent", "Unexpected result");
+                        break;
+                }
+
             default:
                 super.onActivityResult(requestCode, resultCode, fromNoteActivity);
                 break;
