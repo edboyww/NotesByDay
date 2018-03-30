@@ -26,10 +26,12 @@ import butterknife.ButterKnife;
 /**
  * The note editor activity - view
  */
+//TODO create a viewmodel for this
 public class NoteActivity extends AppCompatActivity {
 
     LocalDate selectedDate;
     Note note;
+    boolean newNoteCreated;
 
     @BindView(R.id.note_toolbar) Toolbar noteToolbar;
     ActionBar noteActionBar;
@@ -49,11 +51,13 @@ public class NoteActivity extends AppCompatActivity {
             note = (Note) extras.getSerializable("note");
             assert note != null;
             selectedDate = note.getDate();
+            newNoteCreated = extras.getBoolean("isNewNote");
         } else {
             selectedDate = new LocalDate();
             note = new Note();
             note.setDate(selectedDate);
             note.setAdded(new LocalDateTime());
+            newNoteCreated = true;
         }
 
         //The Toolbar
@@ -84,21 +88,25 @@ public class NoteActivity extends AppCompatActivity {
         //TODO: clean up this mess
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
+
             case android.R.id.home: {
                 Intent backButton = NavUtils.getParentActivityIntent(this);
                 assert backButton != null;
                 //TODO: clear this branch when fancy Telegram effect is ready (?)
+
                 //TODO: What if the user deletes the full note text and pushes the back button. Then it is not a cancel...
-                if (noteText.equals("")) {
+                if (noteText.trim().equals("")) {
+                    if (!newNoteCreated) backButton.putExtra("id", note.getId());
                     setResult(NbdApplication.EMPTY_NOTE_RESULT, backButton);
                 } else {
                     note.setText(noteText);
                     //TODO only change setEdited if the text changed in the process
-                    note.setEdited(new LocalDateTime());
+                    if (!newNoteCreated) note.setEdited(new LocalDateTime());
                     backButton.putExtra("note", note);
                     setResult(RESULT_OK, backButton);
-                    Toast.makeText(getApplicationContext(), R.string.note_saved, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), R.string.note_saved, Toast.LENGTH_SHORT).show();
                 }
+
                 if (NavUtils.shouldUpRecreateTask(this, backButton)) {
                     // This activity is NOT part of this app's task, so create a new task
                     // when navigating up, with a synthesized back stack.
@@ -115,8 +123,10 @@ public class NoteActivity extends AppCompatActivity {
                 }
                 return true;
             }
+
             default:
                 return super.onOptionsItemSelected(item);
+
         }
 
     }

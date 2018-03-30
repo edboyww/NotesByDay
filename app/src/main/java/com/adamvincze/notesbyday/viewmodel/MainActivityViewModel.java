@@ -73,12 +73,12 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     /**
      * Delete note async task
-     * @param note: the Note object which is deleted
+     * @param id: the id of the Note object which is deleted
      */
-    public void deleteNote(Note note) {
-        new DeleteAsyncTask(noteDatabase).execute(note);
+    public void deleteNoteById(int id) {
+        new DeleteAsyncTask(noteDatabase).execute(id);
     }
-    private static class DeleteAsyncTask extends AsyncTask<Note, Void, Void> {
+    private static class DeleteAsyncTask extends AsyncTask<Integer, Void, Void> {
 
         private NoteDatabase db;
         DeleteAsyncTask(NoteDatabase ndb) {
@@ -86,8 +86,8 @@ public class MainActivityViewModel extends AndroidViewModel {
         }
 
         @Override
-        protected Void doInBackground(Note... notes) {
-            db.getNoteDao().delete(notes[0]);
+        protected Void doInBackground(Integer... ids) {
+            db.getNoteDao().deleteByID(ids[0]);
             return null;
         }
     }

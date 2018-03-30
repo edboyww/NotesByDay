@@ -82,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view, int position) {
                         Intent editNoteIntent = new Intent(MainActivity.this, NoteActivity.class);
                         editNoteIntent.putExtra("note", adapter.getItem(position));
-                        startActivityForResult(editNoteIntent, NEW_NOTE_INTENT);
+                        editNoteIntent.putExtra("isNewNote", false);
+                        startActivityForResult(editNoteIntent, EDIT_NOTE_INTENT);
                     }
 
                     @Override
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                                     setPositiveButton(
                                             R.string.note_alert_yes,
                                             (dialog, which) -> {
-                                                viewModel.deleteNote(adapter.getItem(position));
+                                                viewModel.deleteNoteById(adapter.getItem(position).getId());
                                                 dialog.dismiss();
                                             }
                                     ).
@@ -136,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         newNote.setDate(viewModel.getSelectedDate());
         newNote.setAdded(new LocalDateTime());
         newNoteIntent.putExtra("note", newNote);
+        newNoteIntent.putExtra("isNewNote", true);
         startActivityForResult(newNoteIntent, NEW_NOTE_INTENT);
     }
 
@@ -182,9 +184,9 @@ public class MainActivity extends AppCompatActivity {
                         Log.v("Note edit from intent", editedNote.toString());
                         break;
                     case EMPTY_NOTE_RESULT:
-                        Note noteToDelete = (Note) fromNoteActivity.getSerializableExtra("note");
-                        viewModel.deleteNote(noteToDelete);
-                        Log.v("Note edit from intent", (Integer.valueOf(noteToDelete.getId()).toString() + " deleted"));
+                        int idToDelete = fromNoteActivity.getIntExtra("id", 0);
+                        viewModel.deleteNoteById(idToDelete);
+                        Log.v("Note edit from intent", (idToDelete + " deleted"));
                         break;
                     case RESULT_CANCELED:
                         Log.v("Note edit from intent", "RESULT_CANCELED");

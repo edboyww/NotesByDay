@@ -29,6 +29,6 @@ public class NbdApplication extends Application {
     //Statics for note intents
     public static final int NEW_NOTE_INTENT = 11;
     public static final int EDIT_NOTE_INTENT = 12;
-    public static final int EMPTY_NOTE_RESULT = 11;
+    public static final int EMPTY_NOTE_RESULT = 111;
 
 }

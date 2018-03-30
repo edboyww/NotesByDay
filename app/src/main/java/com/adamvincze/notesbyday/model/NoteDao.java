@@ -32,8 +32,11 @@ public interface NoteDao {
 //    @Update
 //    int update(Note note);
 
-    @Delete
-    int delete(Note note);
+//    @Delete
+//    int delete(Note note);
+
+    @Query("DELETE FROM notes WHERE id=:id")
+    int deleteByID(int id);
 
 }
 
