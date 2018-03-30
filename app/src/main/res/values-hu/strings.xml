@@ -15,4 +15,5 @@
     <string name="note_alert">Biztos, hogy törölni akarod a jegyzetet?</string>
     <string name="note_alert_yes">IGEN</string>
     <string name="note_alert_no">NEM</string>
+    <string name="new_note_intent">Új jegyzet a mai napra</string>
 </resources>

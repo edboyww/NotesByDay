@@ -38,6 +38,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.adamvincze.notesbyday.view.MainActivity"
                 />
+            <intent-filter
+                android:icon="@mipmap/ic_launcher"
+                android:label="@string/new_note_intent"
+                android:priority="42" /> <!--IDK how the fuck should this last one be set-->
         </activity>
 
 
