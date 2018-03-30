@@ -13,7 +13,9 @@
     <string name="day_before_yesterday">Tegnapelőtt</string>
     <string name="note_saved">A jegyzet elmentve</string>
     <string name="note_alert">Biztos, hogy törölni akarod a jegyzetet?</string>
-    <string name="note_alert_yes">IGEN</string>
-    <string name="note_alert_no">NEM</string>
+    <string name="note_alert_yes_button">IGEN</string>
+    <string name="note_alert_no_button">NEM</string>
     <string name="new_note_intent">Új jegyzet a mai napra</string>
+    <string name="note_deleted">Jegyzet törölve</string>
+    <string name="undo_button">VISSZAVON</string>
 </resources>

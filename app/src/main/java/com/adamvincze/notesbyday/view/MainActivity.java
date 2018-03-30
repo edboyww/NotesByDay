@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                                 new AlertDialog.Builder(MainActivity.this).
                                     setMessage(R.string.note_alert).
                                     setPositiveButton(
-                                            R.string.note_alert_yes,
+                                            R.string.note_alert_yes_button,
                                             (dialog, which) -> {
                                                 viewModel.deleteNoteById(adapter.getItem(position).getId());
                                                 dialog.dismiss();
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                                             }
                                     ).
                                     setNegativeButton(
-                                            R.string.note_alert_no,
+                                            R.string.note_alert_no_button,
                                             (dialog, which) -> dialog.dismiss()
                                     );
                         alert.create().show();

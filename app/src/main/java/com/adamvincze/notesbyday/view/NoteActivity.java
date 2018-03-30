@@ -1,5 +1,6 @@
 package com.adamvincze.notesbyday.view;
 
+import android.app.Application;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -115,19 +116,29 @@ public class NoteActivity extends AppCompatActivity {
         Intent resultIntent = NavUtils.getParentActivityIntent(this);
 
         if (noteText.trim().equals("")) {
+            setResult(NbdApplication.EMPTY_NOTE_RESULT, resultIntent);
             if (!noteViewModel.isNew()) {
                 resultIntent.putExtra("id", noteViewModel.getNote().getId());
+                Toast.makeText(
+                        getApplicationContext(),
+                        R.string.note_deleted,
+                        Toast.LENGTH_SHORT
+                        ).show();
             }
-            setResult(NbdApplication.EMPTY_NOTE_RESULT, resultIntent);
         } else {
             noteViewModel.getNote().setText(noteText.trim());
             Log.d("Note isNew", Boolean.toString(noteViewModel.isNew()));
             Log.d("Note isEdited", Boolean.toString(noteViewModel.isEdited()));
-            if (!noteViewModel.isNew() && noteViewModel.isEdited()) {
-                noteViewModel.getNote().setEdited(new LocalDateTime());
-            }
             resultIntent.putExtra("note", noteViewModel.getNote());
             setResult(RESULT_OK, resultIntent);
+            if (!noteViewModel.isNew() && noteViewModel.isEdited()) {
+                noteViewModel.getNote().setEdited(new LocalDateTime());
+                Toast.makeText(
+                        getApplicationContext(),
+                        R.string.note_saved,
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
             //Toast.makeText(getApplicationContext(), R.string.note_saved, Toast.LENGTH_SHORT).show();
         }
 
