@@ -77,8 +77,15 @@ public class MainActivity extends AppCompatActivity {
         //setting the observer for the LiveData containing the list
         viewModel.notesData.observe(
             this,
-            // Update the cached copy of the words in the adapter.
-            notes -> adapter.updateList(notes)
+            notes -> {
+                adapter.updateList(notes);
+                TextView noNotes = findViewById(R.id.no_notes_textview);
+                if (notes==null || notes.isEmpty()) {
+                    noNotes.setVisibility(View.VISIBLE);
+                } else {
+                    noNotes.setVisibility(View.GONE);
+                }
+            }
         );
 
         //setting the click listeners for the note items

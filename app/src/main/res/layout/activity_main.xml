@@ -11,11 +11,11 @@
 
     <!--The toolbar-->
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBar"
+        android:id="@+id/main_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         tools:ignore="UnusedAttribute"
         >
 
@@ -84,17 +84,47 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <!--The list of the notes-->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/main_list_view"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:scrollbars="vertical"
-        tools:listitem="@layout/note_item"
+        app:layout_anchor="@id/main_app_bar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        >
+
+        <!--The list of the notes-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/main_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/note_item"
+            />
+
+        <TextView
+            android:id="@+id/no_notes_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="@string/no_notes_today"
+            android:textSize="24sp"
+            android:visibility="gone"
+            android:textColor="@color/colorLightText"
+            app:fontFamily="sans-serif-light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    </android.support.constraint.ConstraintLayout>
 
     <!--The FAB-->
     <android.support.design.widget.FloatingActionButton
