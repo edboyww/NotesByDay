@@ -3,6 +3,7 @@ package com.adamvincze.notesbyday.view;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -21,6 +23,8 @@ import com.adamvincze.notesbyday.viewmodel.MainActivityViewModel;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
+
+import java.lang.reflect.Field;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,6 +111,18 @@ public class MainActivity extends AppCompatActivity {
                                                         R.string.note_deleted,
                                                         Snackbar.LENGTH_LONG
                                                         );
+                                                try {
+                                                    //Awful hack to make snackbar animation great again
+                                                    Field mAccessibilityManagerField = BaseTransientBottomBar.class.getDeclaredField("mAccessibilityManager");
+                                                    mAccessibilityManagerField.setAccessible(true);
+                                                    AccessibilityManager accessibilityManager = (AccessibilityManager) mAccessibilityManagerField.get(undoSnackBar);
+                                                    Field mIsEnabledField = AccessibilityManager.class.getDeclaredField("mIsEnabled");
+                                                    mIsEnabledField.setAccessible(true);
+                                                    mIsEnabledField.setBoolean(accessibilityManager, false);
+                                                    mAccessibilityManagerField.set(undoSnackBar, accessibilityManager);
+                                                } catch (Exception e) {
+                                                    Log.d("Snackbar", "Reflection error: " + e.toString());
+                                                }
                                                 undoSnackBar.setAction(
                                                         R.string.undo_button,
                                                         new undoSnackBarListener()
