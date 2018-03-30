@@ -38,13 +38,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.adamvincze.notesbyday.view.MainActivity"
                 />
-            <!--<intent-filter
+            <intent-filter
                 android:icon="@mipmap/ic_launcher"
                 android:label="@string/new_note_intent"
                 android:priority="42"
                 >
                 <action android:name="com.adamvincze.notesbyday.NEW_NOTE" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
 
 

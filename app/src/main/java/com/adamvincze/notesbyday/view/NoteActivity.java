@@ -72,6 +72,7 @@ public class NoteActivity extends AppCompatActivity {
 
         //The editor area
         noteEditor.setText(noteViewModel.getNote().getText());
+        noteEditor.setSelection(noteEditor.getText().length());
 
     }
 
