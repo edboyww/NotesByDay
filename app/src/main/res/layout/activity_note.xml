@@ -1,76 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?><!--Layout for the note taking part of the application-->
-
-<android.support.constraint.ConstraintLayout
+<?xml version="1.0" encoding="utf-8"?>
+<!--Layout for the note taking part of the application-->
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_note_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context="com.adamvincze.notesbyday.view.NoteActivity"
     >
 
     <!--The toolbar-->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/note_toolbar"
-        android:layout_width="0dp"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintBottom_toTopOf="@+id/note_chip_lane"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:ignore="UnusedAttribute"
-        />
-
-    <!--The chips with the date
-        TODO: and the category tag
-    -->
-    <LinearLayout
-        android:id="@+id/note_chip_lane"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/large_gap"
-        android:paddingTop="@dimen/small_gap"
-        app:layout_constraintBottom_toTopOf="@+id/note_text_input_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/note_toolbar"
         tools:ignore="UnusedAttribute"
         >
 
-        <TextView
-            android:id="@+id/date_chip_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/large_gap"
-            android:layout_marginStart="@dimen/large_gap"
-            android:background="@drawable/shape_chip_simple_drawable_light"
-            android:textColor="@color/colorPrimaryDark"
-            tools:text="2018.09.23, Saturday"
-
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/note_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            tools:ignore="UnusedAttribute"
+            app:layout_scrollFlags="scroll|enterAlways"
             />
 
-    </LinearLayout>
+        <!--The chips with the date
+        TODO: and the category tag
+        -->
+        <LinearLayout
+            android:id="@+id/note_chip_lane"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/large_gap"
+            android:paddingTop="@dimen/small_gap"
+            tools:ignore="UnusedAttribute"
+            >
+
+            <TextView
+                android:id="@+id/date_chip_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/large_gap"
+                android:layout_marginStart="@dimen/large_gap"
+                android:background="@drawable/shape_chip_simple_drawable_light"
+                android:textColor="@color/colorPrimaryDark"
+                tools:text="2018.09.23, Saturday"
+                />
+
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
 
     <!--A full screen text input (it only seems so, the divider is invisible)-->
     <android.support.design.widget.TextInputLayout
         android:id="@+id/note_text_input_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingEnd="@dimen/large_gap"
         android:paddingLeft="@dimen/large_gap"
         android:paddingRight="@dimen/large_gap"
         android:paddingStart="@dimen/large_gap"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/note_chip_lane"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
         >
 
         <android.support.design.widget.TextInputEditText
@@ -89,5 +88,4 @@
 
     </android.support.design.widget.TextInputLayout>
 
-
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

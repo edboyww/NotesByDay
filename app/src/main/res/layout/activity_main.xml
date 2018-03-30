@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,99 +10,91 @@
     >
 
     <!--The toolbar-->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/main_toolbar"
-        android:layout_width="0dp"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:ignore="UnusedAttribute"
-        />
-
-    <!--The note selector-->
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/main_date_bar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
         android:elevation="4dp"
-        android:paddingBottom="@dimen/small_gap"
-        android:paddingTop="@dimen/small_gap"
-        app:layout_constraintBottom_toBottomOf="@+id/main_new_note_fab"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_toolbar"
-        app:layout_constraintVertical_bias="0.0"
-        tools:targetApi="lollipop"
+        tools:ignore="UnusedAttribute"
         >
 
-        <!--Previous day button-->
-        <ImageButton
-            android:id="@+id/main_previous_day_button"
-            style="?android:borderlessButtonStyle"
-            android:layout_width="@dimen/large_touch_size"
-            android:layout_height="@dimen/small_touch_size"
-            android:contentDescription="@string/previous_day_button_desc"
-            android:src="@drawable/ic_chevron_left_contrast_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="RtlHardcoded"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimaryDark"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_scrollFlags="scroll|enterAlways"
             />
 
-        <!--Date-->
-        <TextView
-            android:id="@+id/main_date_textview"
-
-            android:layout_width="wrap_content"
+        <!--The note selector-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/main_date_bar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/shape_chip_simple_drawable_light"
-            android:textColor="@color/colorPrimaryDark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/main_next_day_button"
-            app:layout_constraintStart_toEndOf="@+id/main_previous_day_button"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="RtlHardcoded"
-            tools:text="1983 February 8., Saturday"
-            />
+            android:background="@color/colorPrimaryDark"
+            android:paddingBottom="@dimen/small_gap"
+            android:paddingTop="@dimen/small_gap"
+            tools:targetApi="lollipop"
+            >
 
-        <!--Next day button-->
-        <ImageButton
-            android:id="@+id/main_next_day_button"
-            style="?android:borderlessButtonStyle"
-            android:layout_width="@dimen/large_touch_size"
-            android:layout_height="@dimen/small_touch_size"
-            android:contentDescription="@string/next_day_button_desc"
-            android:src="@drawable/ic_chevron_right_contrast_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="RtlHardcoded"
-            />
+            <!--Previous day button-->
+            <ImageButton
+                android:id="@+id/main_previous_day_button"
+                style="?android:borderlessButtonStyle"
+                android:layout_width="@dimen/large_touch_size"
+                android:layout_height="@dimen/small_touch_size"
+                android:contentDescription="@string/previous_day_button_desc"
+                android:src="@drawable/ic_chevron_left_contrast_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
-    </android.support.constraint.ConstraintLayout>
+            <!--Date-->
+            <TextView
+                android:id="@+id/main_date_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/shape_chip_simple_drawable_light"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/main_next_day_button"
+                app:layout_constraintStart_toEndOf="@+id/main_previous_day_button"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1983 February 8., Saturday"
+                />
+
+            <!--Next day button-->
+            <ImageButton
+                android:id="@+id/main_next_day_button"
+                style="?android:borderlessButtonStyle"
+                android:layout_width="@dimen/large_touch_size"
+                android:layout_height="@dimen/small_touch_size"
+                android:contentDescription="@string/next_day_button_desc"
+                android:src="@drawable/ic_chevron_right_contrast_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.design.widget.AppBarLayout>
 
     <!--The list of the notes-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/main_list_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_date_bar"
         tools:listitem="@layout/note_item"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
 
     <!--The FAB-->
@@ -115,11 +107,10 @@
         android:src="@drawable/ic_add_contrast_24dp"
         app:elevation="6dp"
         app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="@color/colorAccentDark"
         app:useCompatPadding="true"
-        tools:ignore="RtlHardcoded"
+        app:layout_anchor="@id/main_list_view"
+        app:layout_anchorGravity="bottom|right|end"
         />
 
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>
