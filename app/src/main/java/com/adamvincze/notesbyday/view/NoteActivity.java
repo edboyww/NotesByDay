@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.adamvincze.notesbyday.Helpers;
 import com.adamvincze.notesbyday.NbdApplication;
@@ -84,55 +85,69 @@ public class NoteActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        String noteText = noteEditor.getText().toString();
         switch (item.getItemId()) {
-
             // Respond to the action bar's Up/Home button
             case android.R.id.home: {
-                Intent backButton = NavUtils.getParentActivityIntent(this);
-                assert backButton != null;
-
-                //Putting together the back intent
-                if (noteText.trim().equals("")) {
-                    if (!noteViewModel.isNew()) {
-                        backButton.putExtra("id", noteViewModel.getNote().getId());
-                    }
-                    setResult(NbdApplication.EMPTY_NOTE_RESULT, backButton);
-                } else {
-                    noteViewModel.getNote().setText(noteText.trim());
-                    Log.d("Note isNew", Boolean.toString(noteViewModel.isNew()));
-                    Log.d("Note isEdited", Boolean.toString(noteViewModel.isEdited()));
-                    if (!noteViewModel.isNew() && noteViewModel.isEdited()) {
-                        noteViewModel.getNote().setEdited(new LocalDateTime());
-                    }
-                    backButton.putExtra("note", noteViewModel.getNote());
-                    setResult(RESULT_OK, backButton);
-                    //Toast.makeText(getApplicationContext(), R.string.note_saved, Toast.LENGTH_SHORT).show();
-                }
-
-                // If this activity is NOT part of this app's task, create a new task
-                // when navigating up, with a synthesized back stack.
-                if (NavUtils.shouldUpRecreateTask(this, backButton)) {
-                    //TODO: it is not working right now
-                    TaskStackBuilder.create(this)
-                            // Add all of this activity's parents to the back stack
-                            .addNextIntentWithParentStack(backButton)
-                            // Navigate up to the closest parent
-                            .startActivities();
-                }
-                // Else if this activity is part of this app's task, so simply
-                // navigate up to the logical parent activity.
-                else {
-                    NavUtils.navigateUpTo(this, backButton);
-                }
+                navigateUp();
                 return true;
             }
-
             default:
                 return super.onOptionsItemSelected(item);
-
         }
 
     }
+
+    /**
+     * Handling the Back button
+     */
+    @Override
+    public void onBackPressed() {
+        navigateUp();
+        super.onBackPressed();
+    }
+
+    /**
+     * Providing the up navigation and putting together the Intent with the result
+     */
+    private void navigateUp() {
+
+        String noteText = noteEditor.getText().toString();
+        Intent resultIntent = NavUtils.getParentActivityIntent(this);
+
+        if (noteText.trim().equals("")) {
+            if (!noteViewModel.isNew()) {
+                resultIntent.putExtra("id", noteViewModel.getNote().getId());
+            }
+            setResult(NbdApplication.EMPTY_NOTE_RESULT, resultIntent);
+        } else {
+            noteViewModel.getNote().setText(noteText.trim());
+            Log.d("Note isNew", Boolean.toString(noteViewModel.isNew()));
+            Log.d("Note isEdited", Boolean.toString(noteViewModel.isEdited()));
+            if (!noteViewModel.isNew() && noteViewModel.isEdited()) {
+                noteViewModel.getNote().setEdited(new LocalDateTime());
+            }
+            resultIntent.putExtra("note", noteViewModel.getNote());
+            setResult(RESULT_OK, resultIntent);
+            //Toast.makeText(getApplicationContext(), R.string.note_saved, Toast.LENGTH_SHORT).show();
+        }
+
+        // If this activity is NOT part of this app's task, create a new task
+        // when navigating up, with a synthesized back stack.
+        if (NavUtils.shouldUpRecreateTask(this, resultIntent)) {
+            //TODO: it is not working right now
+            TaskStackBuilder.create(this)
+                    // Add all of this activity's parents to the back stack
+                    .addNextIntentWithParentStack(resultIntent)
+                    // Navigate up to the closest parent
+                    .startActivities();
+        }
+        // Else if this activity is part of this app's task, so simply
+        // navigate up to the logical parent activity.
+        else {
+            NavUtils.navigateUpTo(this, resultIntent);
+        }
+
+    }
+
 
 }
