@@ -110,6 +110,7 @@
         app:useCompatPadding="true"
         app:layout_anchor="@id/main_list_view"
         app:layout_anchorGravity="bottom|right|end"
+        app:layout_behavior="com.adamvincze.notesbyday.view.DodgeFabBehaviour"
         />
 
 </android.support.design.widget.CoordinatorLayout>

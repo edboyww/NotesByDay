@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,7 +27,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.adamvincze.notesbyday.Helpers.formatDate;
-import static com.adamvincze.notesbyday.NbdApplication.*;
+import static com.adamvincze.notesbyday.NbdApplication.EDIT_NOTE_INTENT;
+import static com.adamvincze.notesbyday.NbdApplication.EMPTY_NOTE_RESULT;
+import static com.adamvincze.notesbyday.NbdApplication.NEW_NOTE_INTENT;
 
 /**
  * The Main Activity - Note list
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
     private MainActivityViewModel viewModel;
     private NoteListAdapter adapter;
+
+    Note forUndo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,9 +99,19 @@ public class MainActivity extends AppCompatActivity {
                                     setPositiveButton(
                                             R.string.note_alert_yes_button,
                                             (dialog, which) -> {
-                                                viewModel.deleteNoteById(adapter.getItem(position).getId());
+                                                forUndo = adapter.getItem(position);
+                                                viewModel.deleteNoteById(forUndo.getId());
                                                 dialog.dismiss();
-                                                //TODO: Implement the undo snackbar
+                                                Snackbar undoSnackBar = Snackbar.make(
+                                                        findViewById(R.id.activity_main_layout),
+                                                        R.string.note_deleted,
+                                                        Snackbar.LENGTH_LONG
+                                                        );
+                                                undoSnackBar.setAction(
+                                                        R.string.undo_button,
+                                                        new undoSnackBarListener()
+                                                        );
+                                                undoSnackBar.show();
                                             }
                                     ).
                                     setNegativeButton(
@@ -108,6 +123,16 @@ public class MainActivity extends AppCompatActivity {
                 }
 
         ));
+    }
+
+    /**
+     * listener inner class for the Snackbar Undo button
+     */
+    public class undoSnackBarListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            viewModel.insertNote(forUndo);
+        }
     }
 
     /**
