@@ -1,5 +1,6 @@
 package com.adamvincze.notesbyday.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -10,12 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.adamvincze.notesbyday.NbdApplication;
 import com.adamvincze.notesbyday.Helpers;
+import com.adamvincze.notesbyday.NbdApplication;
 import com.adamvincze.notesbyday.R;
 import com.adamvincze.notesbyday.model.Note;
+import com.adamvincze.notesbyday.viewmodel.NoteActivityViewModel;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -29,9 +30,7 @@ import butterknife.ButterKnife;
 //TODO create a viewmodel for this
 public class NoteActivity extends AppCompatActivity {
 
-    LocalDate selectedDate;
-    Note note;
-    boolean newNoteCreated;
+    NoteActivityViewModel noteViewModel;
 
     @BindView(R.id.note_toolbar) Toolbar noteToolbar;
     ActionBar noteActionBar;
@@ -45,19 +44,19 @@ public class NoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_note);
         ButterKnife.bind(this);
 
+        noteViewModel = ViewModelProviders.of(this).get(NoteActivityViewModel.class);
+
         //Getting the note object out of the intent bundle if exists, if not, creation of a new one
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            note = (Note) extras.getSerializable("note");
-            assert note != null;
-            selectedDate = note.getDate();
-            newNoteCreated = extras.getBoolean("isNewNote");
+            noteViewModel.setNote((Note) extras.getSerializable("note"));
+            if (extras.getBoolean("isNewNote")) noteViewModel.theNoteIsNew();
         } else {
-            selectedDate = new LocalDate();
-            note = new Note();
-            note.setDate(selectedDate);
-            note.setAdded(new LocalDateTime());
-            newNoteCreated = true;
+            Note newNote = new Note();
+            newNote.setDate(new LocalDate());
+            newNote.setAdded(new LocalDateTime());
+            noteViewModel.setNote(newNote);
+            noteViewModel.theNoteIsNew();
         }
 
         //The Toolbar
@@ -69,15 +68,15 @@ public class NoteActivity extends AppCompatActivity {
         noteActionBar.setDisplayHomeAsUpEnabled(true);
 
         //The Chip
-        dateChip.setText(Helpers.formatDate(selectedDate));
+        dateChip.setText(Helpers.formatDate(noteViewModel.getSelectedDate()));
 
         //The editor area
-        noteEditor.setText(note.getText());
+        noteEditor.setText(noteViewModel.getNote().getText());
 
     }
 
     /**
-     * Listening to MenuItem clicks
+     * Listening to MenuItem clicks and back buttons
      * @param item: the MenuItem clicked
      * @return false to allow normal menu processing to proceed, true to consume it here.
      */
@@ -94,15 +93,19 @@ public class NoteActivity extends AppCompatActivity {
                 assert backButton != null;
                 //TODO: clear this branch when fancy Telegram effect is ready (?)
 
-                //TODO: What if the user deletes the full note text and pushes the back button. Then it is not a cancel...
+                //
                 if (noteText.trim().equals("")) {
-                    if (!newNoteCreated) backButton.putExtra("id", note.getId());
+                    if (!noteViewModel.isNew()) {
+                        backButton.putExtra("id", noteViewModel.getNote().getId());
+                    }
                     setResult(NbdApplication.EMPTY_NOTE_RESULT, backButton);
                 } else {
-                    note.setText(noteText);
+                    noteViewModel.getNote().setText(noteText);
                     //TODO only change setEdited if the text changed in the process
-                    if (!newNoteCreated) note.setEdited(new LocalDateTime());
-                    backButton.putExtra("note", note);
+                    if (!noteViewModel.isNew()) {
+                        noteViewModel.getNote().setEdited(new LocalDateTime());
+                    }
+                    backButton.putExtra("note", noteViewModel.getNote());
                     setResult(RESULT_OK, backButton);
                     //Toast.makeText(getApplicationContext(), R.string.note_saved, Toast.LENGTH_SHORT).show();
                 }

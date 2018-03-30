@@ -30,7 +30,7 @@ public class MainActivityViewModel extends AndroidViewModel {
                     date -> noteDao.selectByDay(date)
             );
 
-        public MainActivityViewModel(@NonNull Application application) {
+    public MainActivityViewModel(@NonNull Application application) {
         super(application);
         noteDatabase = NoteDatabase.getDatabase(this.getApplication());
         noteDao = noteDatabase.getNoteDao();
