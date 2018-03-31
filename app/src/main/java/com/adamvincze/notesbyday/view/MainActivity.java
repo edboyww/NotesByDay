@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                                                         );
                                                 try {
                                                     //Awful hack to make snackbar animation great again
+                                                    //TODO: try this: https://gist.github.com/corcoran/c1c212aee1040677714dd37384921353
                                                     Field mAccessibilityManagerField = BaseTransientBottomBar.class.getDeclaredField("mAccessibilityManager");
                                                     mAccessibilityManagerField.setAccessible(true);
                                                     AccessibilityManager accessibilityManager = (AccessibilityManager) mAccessibilityManagerField.get(undoSnackBar);

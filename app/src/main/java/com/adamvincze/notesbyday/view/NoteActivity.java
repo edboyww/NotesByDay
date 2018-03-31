@@ -134,12 +134,12 @@ public class NoteActivity extends AppCompatActivity {
             setResult(RESULT_OK, resultIntent);
             if (!viewModel.isNew() && viewModel.isEdited()) {
                 viewModel.getNote().setEdited(new LocalDateTime());
-                Toast.makeText(
-                        getApplicationContext(),
-                        R.string.note_saved,
-                        Toast.LENGTH_SHORT
-                ).show();
             }
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.note_saved,
+                    Toast.LENGTH_SHORT
+            ).show();
         }
 
         if (NavUtils.shouldUpRecreateTask(this, resultIntent)) {
