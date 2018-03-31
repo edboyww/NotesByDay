@@ -14,6 +14,5 @@
     <color name="colorDefaultText">#333333</color>
     <color name="colorLightText">#AAAAAA</color>
     <color name="darkerBackground">#EEEEEE</color>
-    <color name="dividerColor">#DDDDDD</color>
 
 </resources>

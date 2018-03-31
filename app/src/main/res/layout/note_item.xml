@@ -39,11 +39,11 @@
         <!--&gt;-->
     <!--</View>-->
 
-    <!--Divider line-->
+    <!--Divider line
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/dividerColor"
-        />
+        />-->
 
 </LinearLayout>

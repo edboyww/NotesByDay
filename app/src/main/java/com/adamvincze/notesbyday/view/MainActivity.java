@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -73,7 +74,14 @@ public class MainActivity extends AppCompatActivity {
         //setting the adapter and layout for the main note list
         adapter = new NoteListAdapter(viewModel.notesData.getValue());
         mainListView.setAdapter(adapter);
-        mainListView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mainListView.setLayoutManager(layoutManager);
+        //adding the separators
+        DividerItemDecoration divider = new DividerItemDecoration(
+                mainListView.getContext(),
+                layoutManager.getOrientation()
+                );
+        mainListView.addItemDecoration(divider);
 
         //setting the observer for the LiveData containing the list
         viewModel.notesData.observe(
