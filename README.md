@@ -3,6 +3,9 @@ A small note taking app for Android for the use case of handling notes related t
 
 ### CHANGELOG
 
+**0.0.9.4**
+* Visual changes
+
 **0.0.9.3**
 * Undo at note deletion
 
