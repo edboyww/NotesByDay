@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adamvincze.notesbyday.R;
@@ -80,9 +81,12 @@ public class MainActivity extends AppCompatActivity {
             notes -> {
                 adapter.updateList(notes);
                 TextView noNotes = findViewById(R.id.no_notes_textview);
+                ImageView noNotesImg = findViewById(R.id.no_notes_imageview);
                 if (notes==null || notes.isEmpty()) {
+                    noNotesImg.setVisibility(View.VISIBLE);
                     noNotes.setVisibility(View.VISIBLE);
                 } else {
+                    noNotesImg.setVisibility(View.GONE);
                     noNotes.setVisibility(View.GONE);
                 }
             }

@@ -45,7 +45,7 @@
                 android:layout_width="@dimen/large_touch_size"
                 android:layout_height="@dimen/small_touch_size"
                 android:contentDescription="@string/previous_day_button_desc"
-                android:src="@drawable/ic_chevron_left_contrast_24dp"
+                app:srcCompat="@drawable/ic_chevron_left_contrast_24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -74,7 +74,7 @@
                 android:layout_width="@dimen/large_touch_size"
                 android:layout_height="@dimen/small_touch_size"
                 android:contentDescription="@string/next_day_button_desc"
-                android:src="@drawable/ic_chevron_right_contrast_24dp"
+                app:srcCompat="@drawable/ic_chevron_right_contrast_24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -92,6 +92,7 @@
         >
 
         <!--The list of the notes-->
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/main_list_view"
             android:layout_width="match_parent"
@@ -102,26 +103,46 @@
             tools:listitem="@layout/note_item"
             />
 
+        <ImageView
+            android:id="@+id/no_notes_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:contentDescription="@string/no_notes_for_date"
+            android:scaleType="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/no_notes_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:srcCompat="@drawable/no_note_drawable_192dp"
+            />
+
         <TextView
             android:id="@+id/no_notes_textview"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
             android:gravity="center"
-            android:text="@string/no_notes_today"
-            android:textSize="24sp"
-            android:visibility="gone"
+            android:text="@string/no_notes_for_date"
             android:textColor="@color/colorLightText"
+            android:textSize="18sp"
+            android:visibility="gone"
             app:fontFamily="sans-serif-light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/no_notes_imageview"
             />
 
     </android.support.constraint.ConstraintLayout>
@@ -133,7 +154,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/ic_add_contrast_24dp"
+        app:srcCompat="@drawable/ic_add_contrast_24dp"
         app:elevation="6dp"
         app:fabSize="normal"
         app:rippleColor="@color/colorAccentDark"

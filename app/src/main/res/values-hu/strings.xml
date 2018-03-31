@@ -20,5 +20,5 @@
     <string name="undo_button">VISSZAVON</string>
     <string name="new_note_title">Új jegyzet</string>
     <string name="edit_note_title">Jegyzet szerkesztése</string>
-    <string name="no_notes_today">Nincs jegyzet erre a napra</string>
+    <string name="no_notes_for_date">Nincs jegyzet erre a napra</string>
 </resources>
