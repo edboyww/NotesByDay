@@ -1,11 +1,15 @@
 package com.adamvincze.notesbyday.view;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -15,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,7 +45,7 @@ import static com.adamvincze.notesbyday.NbdApplication.NEW_NOTE_INTENT;
 /**
  * The Main Activity - Note list
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener  {
 
     @BindView(R.id.main_toolbar) Toolbar mainToolbar;
     @BindView(R.id.main_date_textview) TextView currentDateView;
@@ -83,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 );
         mainListView.addItemDecoration(divider);
 
-        //setting the observer for the LiveData containing the list
+        // observer for the LiveData containing the List
         viewModel.notesData.observe(
             this,
             notes -> {
@@ -100,7 +105,14 @@ public class MainActivity extends AppCompatActivity {
             }
         );
 
-        //setting the click listeners for the note items
+
+        // observer for the LocalDate in the ViewModel
+        viewModel.selectedDate.observe(
+            this,
+            date -> { currentDateView.setText(formatDate(date)); }
+        );
+
+        // setting the click listeners for the note items
         mainListView.addOnItemTouchListener(new NoteTouchListener(
                 this,
                 mainListView,
@@ -162,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * listener inner class for the Snackbar Undo button
+     * Listener inner class for the Snackbar Undo button
      */
     public class undoSnackBarListener implements View.OnClickListener{
         @Override
@@ -172,30 +184,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * listener of the previous day button on the note card
+     * Listener of the previous day button on the note card
      */
     @OnClick(R.id.main_previous_day_button)
     public void previousDay() {
         viewModel.setDate(viewModel.getSelectedDate().minusDays(1));
-        currentDateView.setText(formatDate(viewModel.getSelectedDate()));
     }
 
     /**
-     * listener of the next day button on the note card
+     * Listener of the next day button on the note card
      */
     @OnClick(R.id.main_next_day_button)
     public void nextDay() {
         viewModel.setDate(viewModel.getSelectedDate().plusDays(1));
-        currentDateView.setText(formatDate(viewModel.getSelectedDate()));
     }
 
     /**
-     * listener of the New note FAB, passing the current date
+     * Listener of the New note FAB, passing the current date
      */
     @OnClick(R.id.main_new_note_fab)
     public void newNote() {
         Intent newNoteIntent = new Intent(MainActivity.this, NoteActivity.class);
-        Note newNote = new Note();
+        Note newNote;
+        newNote = new Note();
         newNote.setDate(viewModel.getSelectedDate());
         newNote.setAdded(new LocalDateTime());
         newNoteIntent.putExtra("note", newNote);
@@ -261,6 +272,48 @@ public class MainActivity extends AppCompatActivity {
                 super.onActivityResult(requestCode, resultCode, fromNoteActivity);
                 break;
         }
+    }
+
+    /**
+     * Listener for the date chip
+     */
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    /**
+     * Callback from the DatePicker
+     */
+    public void onDateSet(DatePicker view, int year, int month, int day) {
+        viewModel.setDate(new LocalDate(year, month, day));
+    }
+
+    /**
+     * The DatePicker when clicking on the date badge
+     */
+    public static class DatePickerFragment extends DialogFragment {
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final LocalDate d = new LocalDate();
+            int year = d.getYear();
+            int month = d.getMonthOfYear();
+            int day = d.getDayOfMonth();
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(
+                    getActivity(),
+                    R.style.MainDatePickerStyle,
+                    (DatePickerDialog.OnDateSetListener)getActivity(),
+                    year,
+                    month,
+                    day
+            );
+        }
+
     }
 
 }

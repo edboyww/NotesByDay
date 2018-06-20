@@ -23,7 +23,7 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     private NoteDatabase noteDatabase;
     private NoteDao noteDao;
-    private MutableLiveData<LocalDate> selectedDate = new MutableLiveData<>();
+    public MutableLiveData<LocalDate> selectedDate = new MutableLiveData<>();
     public final LiveData<List<Note>> notesData =
             Transformations.switchMap(
                     selectedDate,

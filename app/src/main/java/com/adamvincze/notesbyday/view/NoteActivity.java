@@ -1,15 +1,21 @@
 package com.adamvincze.notesbyday.view;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,13 +28,15 @@ import com.adamvincze.notesbyday.viewmodel.NoteActivityViewModel;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * The note editor activity - view
  */
-public class NoteActivity extends AppCompatActivity {
+public class NoteActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     NoteActivityViewModel viewModel;
 
@@ -156,6 +164,50 @@ public class NoteActivity extends AppCompatActivity {
             // Else if this activity is part of this app's task, so simply
             // navigate up to the logical parent activity.
             NavUtils.navigateUpTo(this, resultIntent);
+        }
+
+    }
+
+    /**
+     * Listener for the date chip
+     */
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    /**
+     * Callback from the datepicker
+     */
+    public void onDateSet(DatePicker view, int year, int month, int day) {
+        LocalDate newDate = new LocalDate(year, month, day);
+        viewModel.setSelectedDate(newDate);
+        dateChip.setText(Helpers.formatDate(newDate));
+    }
+
+    /**
+     * The DatePickerFragment when clicking on the date badge
+     */
+    public static class DatePickerFragment extends DialogFragment {
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final LocalDate d = new LocalDate();
+            int year = d.getYear();
+            int month = d.getMonthOfYear();
+            int day = d.getDayOfMonth();
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(
+                    Objects.requireNonNull(getActivity()),
+                    R.style.NewNoteDatePickerStyle,
+                    (DatePickerDialog.OnDateSetListener)getActivity(),
+                    year,
+                    month,
+                    day
+            );
         }
 
     }

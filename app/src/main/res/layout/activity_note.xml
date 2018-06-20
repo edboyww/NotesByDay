@@ -49,6 +49,9 @@
                 android:layout_marginStart="@dimen/large_gap"
                 android:background="@drawable/shape_chip_simple_drawable_light"
                 android:textColor="@color/colorPrimaryDark"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="showDatePickerDialog"
                 tools:text="2018.09.23, Saturday"
                 />
 
